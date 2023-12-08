@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<html lang="{{ site.lang | default: "en-US" }}">
+<html lang="{{ site.lang | default: 'ja' }}">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>{{ page.title }} - {{ site.title }}</title>
-    <link rel="stylesheet" href="{{ "/assets/css/main.css" | relative_url }}">
+    <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   </head>
-  <body>
-    {{ content }}
+  <body class="flex flex-col min-h-screen bg-gray-100 text-gray-800">
+    <header class="text-center py-5 bg-blue-500 text-white">
+      <h1>{{ site.title }}</h1>
+    </header>
+    <main class="container mx-auto p-5">
+      <h2>{{ page.title }}</h2>
+      {{ content }}
+    </main>
+    <footer class="mt-auto text-center py-5 bg-blue-500 text-white">
+      <p>&copy; {{ site.time | date: '%Y' }} {{ site.author }}</p>
+    </footer>
   </body>
 </html>

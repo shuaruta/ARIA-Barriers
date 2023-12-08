@@ -1,4 +1,22 @@
 ---
 ---
 
-@import "base";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h1 {
+    @apply text-2xl font-bold p-4;
+}
+
+h2 {
+    @apply text-center text-red-500 text-2xl p-4;
+}
+
+ul {
+    @apply list-disc ml-5 mt-4 mb-2 text-sm text-gray-500;
+}
+
+li {
+    @apply text-lg text-gray-600 py-2 mb-2;
+}
