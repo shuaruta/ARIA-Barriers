@@ -2,5 +2,6 @@ url: "" # the base hostname & protocol for your site, e.g. http://example.com
 baseurl: "" # the subpath of your site, e.g. /blog
 title: "ARIA-Barriers" # the name of your site, e.g. ACME Corp.
 description: this is a description # A short description of your site's purpose
+future: true # Allow posts to be published in the future
 plugins:
   - jekyll-postcss

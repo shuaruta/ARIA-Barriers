@@ -10,13 +10,29 @@ h1 {
 }
 
 h2 {
-    @apply text-center text-red-500 text-2xl p-4;
+    @apply text-center text-2xl py-10;
+}
+
+h3 {
+    @apply text-2xl font-bold py-5;
 }
 
 ul {
-    @apply list-disc ml-5 mt-4 mb-2 text-sm text-gray-500;
+    @apply list-disc ml-5 mt-4 mb-2 text-sm;
 }
 
 li {
-    @apply text-lg text-gray-600 py-2 mb-2;
+    @apply text-lg py-2 mb-2;
+}
+
+li:not(:first-child) {
+    @apply mt-2;
+}
+
+a {
+    @apply text-blue-900 hover:text-blue-700 underline;
+}
+
+p {
+    @apply leading-loose;
 }
