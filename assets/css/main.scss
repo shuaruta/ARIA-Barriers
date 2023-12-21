@@ -14,11 +14,11 @@ h2 {
 }
 
 h3 {
-    @apply text-2xl font-bold py-5;
+    @apply text-2xl font-bold py-5 mt-12;
 }
 
 ul {
-    @apply list-disc ml-5 mt-4 mb-2 text-sm;
+    @apply list-disc ml-5 mt-4 mb-2 text-sm mb-2;
 }
 
 li {
@@ -33,6 +33,22 @@ a {
     @apply text-blue-900 hover:text-blue-700 underline;
 }
 
+header a {
+    @apply no-underline;
+}
+
 p {
     @apply leading-loose;
+}
+
+img {
+    @apply mt-4 max-w-full md:max-w-md;
+}
+
+.content-box {
+    @apply text-center;
+}
+
+.language-html.highlighter-rouge {
+    @apply bg-pink-100 p-4 mt-12;
 }
