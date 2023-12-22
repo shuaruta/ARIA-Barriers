@@ -18,11 +18,11 @@ h3 {
 }
 
 ul {
-    @apply list-disc ml-5 mt-4 mb-2 text-sm mb-2;
+    @apply list-disc ml-5 mt-4 mb-2 text-base mb-2;
 }
 
 li {
-    @apply text-lg py-2 mb-2;
+    @apply text-base py-2 mb-2;
 }
 
 li:not(:first-child) {
@@ -41,6 +41,10 @@ p {
     @apply leading-loose;
 }
 
+p + p {
+    @apply mt-4;
+}
+
 img {
     @apply mt-4 max-w-full md:max-w-md;
 }
@@ -50,5 +54,5 @@ img {
 }
 
 .language-html.highlighter-rouge {
-    @apply bg-pink-100 p-4 mt-12;
+    @apply bg-pink-100 p-4 mt-12 overflow-x-auto;
 }
