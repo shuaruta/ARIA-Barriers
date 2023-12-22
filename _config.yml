@@ -5,3 +5,4 @@ description: this is a description # A short description of your site's purpose
 future: true # Allow posts to be published in the future
 plugins:
   - jekyll-postcss
+highlighter: rouge
