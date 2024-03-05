@@ -56,3 +56,7 @@ img {
 .language-html.highlighter-rouge {
     @apply text-sm bg-rouge-bg p-4 mt-12 overflow-x-auto;
 }
+
+blockquote {
+    @apply border-l-4 border-gray-400 pl-4 italic my-4;
+}
