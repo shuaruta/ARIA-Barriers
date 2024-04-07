@@ -34,7 +34,7 @@ layout: default
 
 開発者ツールで、 DOM ツリーを確認します。すると、 body タグの下にあるあらゆるタグに対して、 aria-hidden という属性が使用されていることが分かります。たとえばこれです。分かりやすいようにちょっと整形しています。
 
-```
+```html
 <div
   data-theme="dark"
   class="css-fhtuey"
@@ -61,7 +61,7 @@ aria-hidden の [公式の定義](https://www.w3.org/TR/wai-aria-1.2/#aria-hidde
 
 ### aria-hidden があるときのスクリーンリーダーの挙動
 
-一言で言えば、 aria-hidden を持つ要素、およびその中にある全ての子要素は、スクリーンリーダーから完全に無視されます！詰まり、絶対にアクセスできなくなります！
+一言で言えば、 aria-hidden を持つ要素、およびその中にある全ての子要素は、スクリーンリーダーから完全に無視されます！つまり、絶対にアクセスできなくなります！
 
 まさかそんなと思うかもしれませんが、たとえば body 要素に aria-hidden をつけたら、そのページ全体をまったくスクリーンリーダーでアクセスできないように作ることができてしまいます！
 
@@ -71,7 +71,7 @@ aria-hidden の [公式の定義](https://www.w3.org/TR/wai-aria-1.2/#aria-hidde
 
 この下に「登録！」というボタンがあります。ボタンを押すとテストメッセージが表示されます。マウスでは普通に押せると思いますが、スクリーンリーダーはどのように動作するでしょうか？試してみてください。
 
-<div align="center" aria-hidden="true">
+<div align="center" aria-hidden="true" class="my-8">
     <button style="height:50px; width:100px;" type="button" onclick="alert('登録ありがとうございますというテスト');">登録！</button>
 </div>
 
