@@ -56,7 +56,7 @@ ARIA Authoring Practices Guide (APG)
     <li>
       <label>
         <input type="checkbox" id="cond4">
-        ブロッコリー
+        スプラウト
       </label>
     </li>
   </ul>
