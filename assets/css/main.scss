@@ -53,7 +53,8 @@ img {
     @apply text-center;
 }
 
-.language-html.highlighter-rouge {
+.language-html.highlighter-rouge,
+.language-javascript.highlighter-rouge {
     @apply text-sm bg-rouge-bg p-4 my-8 overflow-x-auto;
 }
 
