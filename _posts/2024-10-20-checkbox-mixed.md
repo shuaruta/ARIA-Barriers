@@ -84,6 +84,23 @@ JavaScriptでは、チェックボックスの状態を管理し、aria-checked�
 APGの実装では、OSのハイコントラストモードを考慮してCSSでカスタマイズを行っています。
 ここでは深入りしません。
 
+以下はこのコードの一部を取り出したデモです。操作はできませんが、NVDA が「一部チェック」と読み上げます。
+
+<style>
+.group_checkbox_apg::before {
+  position: relative;
+  top: 1px;
+  content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='16' width='16' style='forced-color-adjust: auto;'%3E%3Crect x='2' y='2' height='13' width='13' rx='2' stroke='currentcolor' stroke-width='1' fill-opacity='0' /%3E%3Cline x1='5' y1='5' x2='12' y2='12' stroke='currentcolor' stroke-width='2' /%3E%3C/svg%3E");
+}
+</style>
+<div role="checkbox"
+  class="group_checkbox_apg mt-4 mb-4"
+  aria-checked="mixed"
+  aria-controls="cond1 cond2 cond3 cond4"
+  tabindex="0">
+  すべての具材
+</div>
+
 ## 改善したつもりなのに
 
 混合状態のチェックボックスを、div 要素ではなく、input 要素で実装してみます。
@@ -111,6 +128,21 @@ APGの実装では、OSのハイコントラストモードを考慮してCSSで
 
 どうして APG はこうしなかったのでしょう？
 
+ためしにこれを NVDA と Chrome で読み上げてみましょう。
+
+<label>
+  <input 
+    type="checkbox"
+    role="checkbox"
+    class="group_checkbox"
+    aria-checked="mixed"
+    aria-controls="cond1 cond2 cond3 cond4"
+    tabindex="0">
+  すべての具材
+</label>
+
+aria-checked="mixed" という属性があるのに「チェックボックス チェックなし すべての具材」になりました。
+
 もうすこしよく考えてみましょう。
 
 ## 強いネイティブセマンティクス
@@ -137,19 +169,19 @@ checked 属性や indeterminate 属性は「強いネイティブセマンティ
 とするだけで混合状態を表現できたのですが、input 要素の場合は
 
 - aria-checked: mixed
-- indeterminate: true
+- indeterminate: false
 
-にしなくてはなりません。
+と解釈され、indeterminate の値が優先されて、混合状態を表現できなかったようです。
 
-JavaScript を直さないといけませんね。
+HTML の属性では制御できないとのことなので JavaScript を直さないといけませんね。
 
-あれ、 HTML でもともと混合状態がサポートされているのであれば、もしかして WAI-ARIA はいらないのでは？
+でも input 要素でもともと混合状態がサポートされているのであれば、もしかして WAI-ARIA はいらないのでは？
 
 ## 標準的な要素を使用した実装
 
 標準的なチェックボックス要素を使用しつつ、混合状態を表現する方法を考えてみましょう。
 
-MDNの[input 要素の checkbox 型](https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/checkbox)には「未決定状態のチェックボックス」として説明されています。
+MDN [input 要素の checkbox 型](https://developer.mozilla.org/ja/docs/Web/HTML/Element/input/checkbox) には「未決定状態のチェックボックス」として説明されています。
 
 ```html
 <fieldset class="checkbox-mixed">
@@ -221,7 +253,7 @@ window.addEventListener('load', () => {
 });
 ```
 
-## デモ
+## aria-checked を使わないデモ
 
 <fieldset class="checkbox-mixed p-4 border rounded-md bg-gray-50 mt-4">
   <legend class="text-lg font-semibold mb-2">サンドイッチの具材</legend>
@@ -300,14 +332,20 @@ ul.no-bullets {
 
 ところで `aria-controls`属性がスクリーンリーダーによって適切にサポートされている場合、以下が期待されます。
 
-- `aria-controls`で指定された要素に直接ジャンプする機能により、ユーザーは関連する子チェックボックスにすばやくアクセスできると期待されます。
-- 「このチェックボックスは他の4つの要素を制御しています」のような追加情報を提供できると期待されます。
+- `aria-controls`で指定された要素に直接ジャンプする機能により、ユーザーは関連する子チェックボックスにすばやくアクセスできる（かも知れません）。
+- 「このチェックボックスは他の4つの要素を制御しています」のような追加情報を提供できる（かも知れません）。
 
 ただし、例えば[NVDAは aria-controls 属性をまだサポートしていません](https://github.com/nvaccess/nvda/issues/8983)。
 
-aria-controls 属性はアクセシビリティ サポーテッドではないかも知れないですね。
+aria-controls 属性は[アクセシビリティ サポーテッド](https://waic.jp/guideline/as/)ではないかも知れないですね。
 
 ## やっぱり less ARIA is better
+
+Accessible Rich Internet Applications (WAI-ARIA) 1.3 日本語訳 [checkboxロール](https://momdo.github.io/wai-aria-1.3/#checkbox) の注には、
+
+> HTMLのネイティヴチェックボックスの強いネイティヴセマンティックスのために、著者はinput type=checkboxでaria-checkedを使用しないことを勧める。むしろ、チェックボックスの"チェック済み"または"混合"状態をそれぞれ指定するために、ネイティヴのchecked属性またはindeterminate IDL属性を使用する。
+
+と説明されていました。
 
 APG の実装例は、なにげなく書かれているようで、実はちょっとアレンジしただけで前提が成り立たなくなることがあると気づきました。注意が必要です。
 
