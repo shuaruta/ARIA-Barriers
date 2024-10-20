@@ -5,6 +5,8 @@ layout: default
 
 [@nishimotz](https://github.com/nishimotz) です。
 
+[ウェブアクセシビリティLT＆交流会 vol.4](https://a11y-discord.connpass.com/event/331889/) に参加して、交流会で話したことを、あとで気になって調べてみたのが今回の記事です。
+
 混合状態(部分的にチェック済み)のチェックボックスは、あるオプションが複数のサブオプションを統括しているような場合に便利な UI 要素です。
 
 しかし、アクセシビリティを確保するためには、適切な実装が必要だとされています。
@@ -82,7 +84,7 @@ JavaScriptでは、チェックボックスの状態を管理し、aria-checked�
 APGの実装では、OSのハイコントラストモードを考慮してCSSでカスタマイズを行っています。
 ここでは深入りしません。
 
-## ちょっとアレンジしてみる
+## 改善したつもりなのに
 
 混合状態のチェックボックスを、div 要素ではなく、input 要素で実装してみます。
 
@@ -208,6 +210,75 @@ function updateAllCheckbox() {
 
 allCheckbox.addEventListener('change', () => {
   ingredientCheckboxes.forEach(cb => cb.checked = allCheckbox.checked);
+});
+
+ingredientCheckboxes.forEach(cb => {
+  cb.addEventListener('change', updateAllCheckbox);
+});
+
+window.addEventListener('load', () => {
+  updateAllCheckbox();
+});
+```
+
+## デモ
+
+<fieldset class="checkbox-mixed p-4 border rounded-md bg-gray-50 mt-4">
+  <legend class="text-lg font-semibold mb-2">サンドイッチの具材</legend>
+  <label class="flex items-center mb-4">
+    <input type="checkbox"
+           class="form-checkbox h-5 w-5 text-blue-600"
+           id="all-ingredients"
+           aria-controls="cond1 cond2 cond3 cond4">
+    <span class="ml-2">すべての具材</span>
+  </label>
+  <ul class="no-bullets ml-6">
+    <li class="mb-1">
+      <label class="flex items-center">
+        <input type="checkbox" id="cond1" name="ingredient" class="form-checkbox h-4 w-4 text-green-500">
+        <span class="ml-2">レタス</span>
+      </label>
+    </li>
+    <li class="mb-1">
+      <label class="flex items-center">
+        <input type="checkbox" id="cond2" name="ingredient" checked class="form-checkbox h-4 w-4 text-red-500">
+        <span class="ml-2">トマト</span>
+      </label>
+    </li>
+    <li class="mb-1">
+      <label class="flex items-center">
+        <input type="checkbox" id="cond3" name="ingredient" class="form-checkbox h-4 w-4 text-yellow-500">
+        <span class="ml-2">マスタード</span>
+      </label>
+    </li>
+    <li class="mb-1">
+      <label class="flex items-center">
+        <input type="checkbox" id="cond4" name="ingredient" class="form-checkbox h-4 w-4 text-purple-500">
+        <span class="ml-2">スプラウト</span>
+      </label>
+    </li>
+  </ul>
+</fieldset>
+<script>
+const allCheckbox = document.getElementById('all-ingredients');
+const ingredientCheckboxes = document.querySelectorAll('input[name="ingredient"]');
+
+function updateAllCheckbox() {
+  const checkedCount = document.querySelectorAll('input[name="ingredient"]:checked').length;
+  if (checkedCount === 0) {
+    allCheckbox.checked = false;
+    allCheckbox.indeterminate = false;
+  } else if (checkedCount === ingredientCheckboxes.length) {
+    allCheckbox.checked = true;
+    allCheckbox.indeterminate = false;
+  } else {
+    allCheckbox.checked = false;
+    allCheckbox.indeterminate = true;
+  }
+}
+
+allCheckbox.addEventListener('change', () => {
+  ingredientCheckboxes.forEach(cb => cb.checked = allCheckbox.checked);
   updateAllCheckbox();
 });
 
@@ -215,9 +286,15 @@ ingredientCheckboxes.forEach(cb => {
   cb.addEventListener('change', updateAllCheckbox);
 });
 
-// 初期状態の設定
-updateAllCheckbox();
-```
+window.addEventListener('load', () => {
+  updateAllCheckbox();
+});
+</script>
+<style>
+ul.no-bullets {
+  list-style-type: none;
+}
+</style>
 
 ## aria-controls 属性
 
