@@ -259,7 +259,7 @@ window.addEventListener('load', () => {
   <legend class="text-lg font-semibold mb-2">サンドイッチの具材</legend>
   <label class="flex items-center mb-4">
     <input type="checkbox"
-           class="form-checkbox h-5 w-5 text-blue-600"
+           class="h-5 w-5 text-blue-600"
            id="all-ingredients"
            aria-controls="cond1 cond2 cond3 cond4">
     <span class="ml-2">すべての具材</span>
@@ -267,25 +267,25 @@ window.addEventListener('load', () => {
   <ul class="no-bullets ml-6">
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond1" name="ingredient" class="form-checkbox h-4 w-4 text-green-500">
+        <input type="checkbox" id="cond1" name="ingredient" class="h-4 w-4">
         <span class="ml-2">レタス</span>
       </label>
     </li>
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond2" name="ingredient" checked class="form-checkbox h-4 w-4 text-red-500">
+        <input type="checkbox" id="cond2" name="ingredient" checked class="h-4 w-4">
         <span class="ml-2">トマト</span>
       </label>
     </li>
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond3" name="ingredient" class="form-checkbox h-4 w-4 text-yellow-500">
+        <input type="checkbox" id="cond3" name="ingredient" class="h-4 w-4">
         <span class="ml-2">マスタード</span>
       </label>
     </li>
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond4" name="ingredient" class="form-checkbox h-4 w-4 text-purple-500">
+        <input type="checkbox" id="cond4" name="ingredient" class="h-4 w-4">
         <span class="ml-2">スプラウト</span>
       </label>
     </li>
