@@ -158,7 +158,7 @@ checked プロパティはチェックの有無を表します。値は true ま
 
 indeterminate プロパティは混合状態を表します。 aria-checked 属性の mixed に相当する場合に true となり、それ以外の場合に false となります。HTML としては indeterminate 属性は存在しません。
 
-checked 属性や indeterminate 属性は「強いネイティブセマンティクス」を持つとされ、aria-checked 属性よりも優先されます。
+checked や indeterminate は「強いネイティブセマンティクス」を持つとされ、aria-checked 属性よりも優先されます。
 
 [role 属性とは、aria-* 属性とは、WAI-ARIA とは、いったい何なのか、いつ使うべきなのか](https://qiita.com/ymrl/items/6c9c059208ea11e6d7bc)
 
@@ -196,25 +196,25 @@ MDN [input 要素の checkbox 型](https://developer.mozilla.org/ja/docs/Web/HTM
   <ul>
     <li>
       <label>
-        <input type="checkbox" id="cond1" name="ingredient">
+        <input type="checkbox" id="cond1" name="ingredient" value="レタス">
         レタス
       </label>
     </li>
     <li>
       <label>
-        <input type="checkbox" id="cond2" name="ingredient" checked="">
+        <input type="checkbox" id="cond2" name="ingredient" value="トマト" checked="">
         トマト
       </label>
     </li>
     <li>
       <label>
-        <input type="checkbox" id="cond3" name="ingredient">
+        <input type="checkbox" id="cond3" name="ingredient" value="マスタード">
         マスタード
       </label>
     </li>
     <li>
       <label>
-        <input type="checkbox" id="cond4" name="ingredient">
+        <input type="checkbox" id="cond4" name="ingredient" value="スプラウト">
         スプラウト
       </label>
     </li>
@@ -267,25 +267,25 @@ window.addEventListener('load', () => {
   <ul class="no-bullets ml-6">
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond1" name="ingredient" class="h-4 w-4">
+        <input type="checkbox" id="cond1" name="ingredient" value="レタス" class="h-4 w-4">
         <span class="ml-2">レタス</span>
       </label>
     </li>
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond2" name="ingredient" checked class="h-4 w-4">
+        <input type="checkbox" id="cond2" name="ingredient" value="トマト" checked="" class="h-4 w-4">
         <span class="ml-2">トマト</span>
       </label>
     </li>
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond3" name="ingredient" class="h-4 w-4">
+        <input type="checkbox" id="cond3" name="ingredient" value="マスタード" class="h-4 w-4">
         <span class="ml-2">マスタード</span>
       </label>
     </li>
     <li class="mb-1">
       <label class="flex items-center">
-        <input type="checkbox" id="cond4" name="ingredient" class="h-4 w-4">
+        <input type="checkbox" id="cond4" name="ingredient" value="スプラウト" class="h-4 w-4">
         <span class="ml-2">スプラウト</span>
       </label>
     </li>
