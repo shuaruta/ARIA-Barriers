@@ -1,8 +1,8 @@
-url: "https://shuaruta.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-baseurl: "/ARIA-Barriers" # the subpath of your site, e.g. /blog
-title: "ARIA-Barriers" # the name of your site, e.g. ACME Corp.
-description: this is a description # A short description of your site's purpose
-future: true # Allow posts to be published in the future
+url: "https://aria-barriers.shuaruta.com/"
+baseurl: ""
+title: "ARIA-Barriers"
+description: "ウェブアクセシビリティの失敗事例を発信します。"
+future: true
 plugins:
   - jekyll-postcss
 highlighter: rouge
