@@ -61,3 +61,13 @@ img {
 blockquote {
     @apply border-l-4 border-gray-400 pl-4 italic my-4;
 }
+
+/* 特定のボタンのスタイル */
+#badButton, #goodButton {
+    @apply bg-blue-700 text-white px-4 py-2 rounded-md border border-blue-800 hover:bg-blue-800 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-blue-500 focus:ring-opacity-100 ring-offset-2 ring-offset-white;
+}
+
+/* aria-expanded="true"の場合のスタイル */
+#badButton[aria-expanded="true"], #goodButton[aria-expanded="true"] {
+    @apply bg-green-800 border-green-900 text-white font-bold transform scale-105 shadow-md pb-20;
+}
