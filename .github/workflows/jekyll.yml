@@ -4,13 +4,15 @@
 # documentation.
 
 # Sample workflow for building and deploying a Jekyll site to GitHub Pages
-name: Deploy Jekyll site to Pages
+name: Jekyll site CI/CD
 
 on:
   # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-
+  # Runs on pull requests
+  pull_request:
+    branches: ["main"]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -57,8 +59,10 @@ jobs:
         # Automatically uploads an artifact from the './_site' directory by default
         uses: actions/upload-pages-artifact@v3
 
-  # Deployment job
+  # Deployment job - only runs on push to main, not on pull requests
   deploy:
+    # Only run on push to main, not on pull requests
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
