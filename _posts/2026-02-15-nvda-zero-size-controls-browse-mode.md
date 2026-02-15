@@ -44,11 +44,21 @@ PR の説明にもあるとおり、この挙動は「ウェブがずっとシ�
 
 見た目用のラベルだけ表示し、実際のラジオボタンは `width: 0; height: 0` で隠しています。ブラウズモードで「オプション A」「オプション B」「オプション C」のラジオボタンとして読めるか、選択できるかを試してください。
 
-<div role="group" aria-labelledby="zerodemo-group-label" class="my-6 p-4 border border-gray-300 rounded">
+<style>
+.zerodemo-radio-group input[type=radio] + label { display: inline-flex; align-items: center; gap: 0.35em; cursor: pointer; }
+.zerodemo-radio-group input[type=radio] + label::before {
+  content: ""; display: inline-block; width: 1em; height: 1em; border: 2px solid #333; border-radius: 50%;
+  box-sizing: border-box; flex-shrink: 0;
+}
+.zerodemo-radio-group input[type=radio]:checked + label::before {
+  background: #333; border-color: #333;
+}
+</style>
+<div role="group" aria-labelledby="zerodemo-group-label" class="zerodemo-radio-group my-6 p-4 border border-gray-300 rounded">
   <p id="zerodemo-group-label" class="font-bold mb-2">メンテナンスドローンを選択</p>
   <div class="flex flex-wrap gap-4">
     <span style="display:inline-block;">
-      <input type="radio" name="zerodemo-drone" id="zerodemo-r1" value="a" style="width:0;height:0;margin:0;padding:0;border:0;position:absolute;clip:rect(0,0,0,0);" aria-label="オプション A">
+      <input type="radio" name="zerodemo-drone" id="zerodemo-r1" value="a" checked style="width:0;height:0;margin:0;padding:0;border:0;position:absolute;clip:rect(0,0,0,0);" aria-label="オプション A">
       <label for="zerodemo-r1">オプション A</label>
     </span>
     <span style="display:inline-block;">
@@ -80,7 +90,7 @@ PR の説明にもあるとおり、この挙動は「ウェブがずっとシ�
 
 ### デモ2: スクリーンリーダー専用の「名前の代わりに入力」ボタン
 
-署名欄などでよくある「描画の代わりに名前を入力」するための、視覚的に隠したボタンです。ブラウズモードで探して Enter で押してみてください。押すとメッセージが表示されます。
+署名欄などでよくある「署名（キャンバス）の代わりに名前を入力」するための、視覚的に隠したボタンです。ブラウズモードで探して Enter で押してみてください。押すとメッセージが表示されます。
 
 <div class="my-6 p-4 border border-gray-300 rounded" style="position:relative;">
   <p class="mb-2">署名（キャンバス）の代わりに:</p>
