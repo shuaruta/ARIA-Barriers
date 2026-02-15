@@ -72,6 +72,8 @@ PR の説明にもあるとおり、この挙動は「ウェブがずっとシ�
   </div>
 </div>
 
+---
+
 ```html
 <div role="group" aria-labelledby="zerodemo-group-label">
   <p id="zerodemo-group-label">メンテナンスドローンを選択</p>
@@ -88,7 +90,7 @@ PR の説明にもあるとおり、この挙動は「ウェブがずっとシ�
 
 ---
 
-### デモ2: スクリーンリーダー専用の「名前の代わりに入力」ボタン
+### デモ2: スクリーンリーダー専用の「署名の代わりに入力」ボタン
 
 署名欄などでよくある「署名（キャンバス）の代わりに名前を入力」するための、視覚的に隠したボタンです。ブラウズモードで探して Enter で押してみてください。押すとメッセージが表示されます。
 
@@ -97,6 +99,8 @@ PR の説明にもあるとおり、この挙動は「ウェブがずっとシ�
   <button type="button" id="zerodemo-sr-only-btn" style="width:0;height:0;margin:0;padding:0;border:0;position:absolute;clip:rect(0,0,0,0);overflow:hidden;display:block;" aria-label="名前を入力する">名前を入力する</button>
   <span aria-hidden="true">（画面では見えません）</span>
 </div>
+
+---
 
 ```html
 <button type="button"
@@ -123,6 +127,8 @@ PR の説明にもあるとおり、この挙動は「ウェブがずっとシ�
   <p id="zerodemo-pb-label" class="mb-2">読み込み中（0%）</p>
   <div role="progressbar" aria-labelledby="zerodemo-pb-label" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:0%; height:8px; background:#333; border-radius:4px;"></div>
 </div>
+
+---
 
 ```html
 <div role="progressbar"
@@ -181,6 +187,12 @@ issue #13897 のスレッドでは、**aria-hidden の「修復」**にも言及
 
 - **`width: 0; height: 0` は非推奨のハック**です。この記事のデモがまさにそうですが、スクリーンリーダーごと・ブラウザごとに挙動が異なり、今回のように「NVDA だけ読めない」といった問題が起きます。視覚的に隠す必要がある場合は、**画面外（off-screen）に配置する手法**（`position: absolute; left: -10000px` や、Bootstrap・Tailwind の `.sr-only` / `.visually-hidden` クラスが採用している `clip-path` + `1px × 1px` のパターン）のほうが、スクリーンリーダーの対応状況が安定しています。
 - **「スクリーンリーダー専用コンテンツ」を作ること自体が、テストの負担を増やします。** 視覚的に見えないものは目視レビューで検出できず、スクリーンリーダーでの動作確認を全ブラウザ・全 AT で行わないと品質を担保できません。可能であれば、すべてのユーザーに同じ情報を同じ方法で提供する設計が、もっとも堅牢です。
+
+## ちなみに：この変更は Firefox だけ？
+
+NVDA の対応は Gecko IA2（Firefox ブラウズモード）に限られますが、Chromium 系（Google Chrome・Microsoft Edge など）や Safari でも**幅0・高さ0要素は既にアクセシビリティツリーに載っており**、他スクリーンリーダー（JAWS、VoiceOver など）によっては以前から読めていました。
+
+今回の修正により主要ブラウザ間で残っていた仕様の食い違いのひとつが解消されます。
 
 ## まとめ
 
