@@ -56,9 +56,11 @@ function updateDemo() {
 
 <p><button onclick="updateDemo100()">進捗を進める</button> <span id="demo-status-100" aria-live="polite">33 / 100 (33%)</span></p>
 <script>
-let demoVal100 = 33;
+const demoSteps100 = [33, 66, 100];
+let demoStep100 = 0;
 function updateDemo100() {
-  demoVal100 = demoVal100 >= 100 ? 33 : demoVal100 + 33;
+  demoStep100 = (demoStep100 + 1) % demoSteps100.length;
+  const demoVal100 = demoSteps100[demoStep100];
   const bars = document.querySelectorAll('[role="progressbar"]');
   const bar = bars[1];
   bar.setAttribute('aria-valuenow', demoVal100);
