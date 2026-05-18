@@ -28,7 +28,7 @@ ARIA の `progressbar` ロールでは、進捗範囲を `aria-valuemin` と `ar
   <div style="width:33%;height:100%;background:#4a90d9;transition:width 0.3s;"></div>
 </div>
 
-<p><button onclick="updateDemo()">進捗を進める</button> <span id="demo-status" aria-live="polite">1 / 3 (33%)</span></p>
+<p><button type="button" onclick="updateDemo()" style="padding:0.45em 1em;font:inherit;color:#fff;background:#4a90d9;border:1px solid #3570a8;border-radius:4px;cursor:pointer;">進捗を進める</button> <span id="demo-status" aria-live="polite">1 / 3 (33%)</span></p>
 <script>
 let demoVal = 1;
 function updateDemo() {
@@ -54,7 +54,7 @@ function updateDemo() {
   <div style="width:33%;height:100%;background:#4a90d9;transition:width 0.3s;"></div>
 </div>
 
-<p><button onclick="updateDemo100()">進捗を進める</button> <span id="demo-status-100" aria-live="polite">33 / 100 (33%)</span></p>
+<p><button type="button" onclick="updateDemo100()" style="padding:0.45em 1em;font:inherit;color:#fff;background:#4a90d9;border:1px solid #3570a8;border-radius:4px;cursor:pointer;">進捗を進める</button> <span id="demo-status-100" aria-live="polite">33 / 100 (33%)</span></p>
 <script>
 const demoSteps100 = [33, 66, 100];
 let demoStep100 = 0;
