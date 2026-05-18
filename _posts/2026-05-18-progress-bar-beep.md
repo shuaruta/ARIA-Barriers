@@ -30,12 +30,14 @@ ARIA の `progressbar` ロールでは、進捗範囲を `aria-valuemin` と `ar
 
 <p><button type="button" onclick="updateDemo()" style="padding:0.45em 1em;font:inherit;color:#fff;background:#4a90d9;border:1px solid #3570a8;border-radius:4px;cursor:pointer;">進捗を進める</button> <span id="demo-status" aria-live="polite">1 の 3</span></p>
 <script>
-let demoVal = 1;
+const demoSteps = [0, 1, 2, 3];
+let demoStep = 1;
 function updateDemo() {
-  demoVal = demoVal >= 3 ? 1 : demoVal + 1;
+  demoStep = (demoStep + 1) % demoSteps.length;
+  const demoVal = demoSteps[demoStep];
   const bar = document.querySelector('[role="progressbar"]');
   bar.setAttribute('aria-valuenow', demoVal);
-  bar.querySelector('div').style.width = (demoVal/3*100) + '%';
+  bar.querySelector('div').style.width = (demoVal / 3 * 100) + '%';
   document.getElementById('demo-status').textContent = demoVal + ' の 3';
 }
 </script>
@@ -48,7 +50,7 @@ function updateDemo() {
 </div>
 ```
 
-比較のために `aria-valuemax="100"` で、見た目は同じ 3 段階（33%・67%・100%）になるデモも用意しました。
+比較のために `aria-valuemax="100"` で、同じ 4 段階（0・33・67・100）になるデモも用意しました。
 
 <div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33" style="width:200px;height:20px;background:#eee;border:1px solid #999;border-radius:4px;overflow:hidden;margin:1em 0;">
   <div style="width:33%;height:100%;background:#4a90d9;transition:width 0.3s;"></div>
@@ -56,8 +58,8 @@ function updateDemo() {
 
 <p style="margin-bottom: 1.5em;"><button type="button" onclick="updateDemo100()" style="padding:0.45em 1em;font:inherit;color:#fff;background:#4a90d9;border:1px solid #3570a8;border-radius:4px;cursor:pointer;">進捗を進める</button> <span id="demo-status-100" aria-live="polite">33 の 100</span></p>
 <script>
-const demoSteps100 = [33, 67, 100];
-let demoStep100 = 0;
+const demoSteps100 = [0, 33, 67, 100];
+let demoStep100 = 1;
 function updateDemo100() {
   demoStep100 = (demoStep100 + 1) % demoSteps100.length;
   const demoVal100 = demoSteps100[demoStep100];
@@ -69,7 +71,7 @@ function updateDemo100() {
 }
 </script>
 
-NVDA で各プログレスバーにフォーカスし、ボタンで段階を進めたときのビープ音を比べてください。上のバー（`aria-valuemax="3"`）では `aria-valuenow` が 1 の段階で 1% 相当の低い音になることがあります。下のバー（`aria-valuemax="100"`）では同じ見た目の段階で 33% 相当の音になることが多いです。実際の動作はブラウザと NVDA のバージョンに依存します。
+NVDA で各プログレスバーにフォーカスし、ボタンで段階を進めたときのビープ音を比べてください。まず 0 の段階で一番低い音の目安を聞き、そのあと `aria-valuenow` が 1 の段階（上のバー）と 33 の段階（下のバー）を比べると、上のバーだけ 1% 相当の誤った低さになることがあります。実際の動作はブラウザと NVDA のバージョンに依存します。
 
 NVDA の設定「オブジェクト表示」の「プログレスバー出力」は「オフ」「読み上げ」「ビープ音」「ビープ音と読み上げ」のいずれかに設定できます。切り替えのキーボード操作は NVDA+U です。ビープ音の比較では「ビープ音」または「ビープ音と読み上げ」を選んでください。
 
