@@ -24,7 +24,7 @@ ARIA の `progressbar` ロールでは、進捗範囲を `aria-valuemin` と `ar
 
 ### デモ
 
-<div role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1" aria-label="3段階中1段階目" style="width:200px;height:20px;background:#eee;border:1px solid #999;border-radius:4px;overflow:hidden;margin:1em 0;">
+<div role="progressbar" aria-valuemin="0" aria-valuemax="3" aria-valuenow="1" style="width:200px;height:20px;background:#eee;border:1px solid #999;border-radius:4px;overflow:hidden;margin:1em 0;">
   <div style="width:33%;height:100%;background:#4a90d9;transition:width 0.3s;"></div>
 </div>
 
@@ -40,7 +40,36 @@ function updateDemo() {
 }
 </script>
 
-NVDA でこのプログレスバーにフォーカスすると、値が 1 のときに 1% としてビープ音が鳴る可能性があります。実際の動作はブラウザと NVDA のバージョンに依存します。
+```html
+<div role="progressbar"
+  aria-valuemin="0" aria-valuemax="3" aria-valuenow="1"
+  style="width:200px;height:20px;background:#eee;border:1px solid #999;border-radius:4px;overflow:hidden;margin:1em 0;">
+  <div style="width:33%;height:100%;background:#4a90d9;transition:width 0.3s;"></div>
+</div>
+```
+
+比較のために `aria-valuemax="100"` で、見た目は同じ 3 段階（33%・66%・100%）になるデモも用意しました。
+
+<div role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33" style="width:200px;height:20px;background:#eee;border:1px solid #999;border-radius:4px;overflow:hidden;margin:1em 0;">
+  <div style="width:33%;height:100%;background:#4a90d9;transition:width 0.3s;"></div>
+</div>
+
+<p><button onclick="updateDemo100()">進捗を進める</button> <span id="demo-status-100" aria-live="polite">33 / 100 (33%)</span></p>
+<script>
+let demoVal100 = 33;
+function updateDemo100() {
+  demoVal100 = demoVal100 >= 100 ? 33 : demoVal100 + 33;
+  const bars = document.querySelectorAll('[role="progressbar"]');
+  const bar = bars[1];
+  bar.setAttribute('aria-valuenow', demoVal100);
+  bar.querySelector('div').style.width = demoVal100 + '%';
+  document.getElementById('demo-status-100').textContent = demoVal100 + ' / 100 (' + demoVal100 + '%)';
+}
+</script>
+
+NVDA で各プログレスバーにフォーカスし、ボタンで段階を進めたときのビープ音を比べてください。上のバー（`aria-valuemax="3"`）では `aria-valuenow` が 1 の段階で 1% 相当の低い音になることがあります。下のバー（`aria-valuemax="100"`）では同じ見た目の段階で 33% 相当の音になることが多いです。実際の動作はブラウザと NVDA のバージョンに依存します。
+
+NVDA の設定「オブジェクト表示」の「プログレスバー出力」は「オフ」「読み上げ」「ビープ音」「ビープ音と読み上げ」のいずれかに設定できます。ビープ音の比較では「ビープ音」または「ビープ音と読み上げ」を選んでください。
 
 ## NVDA が valuemax を考慮しない理由
 
@@ -180,12 +209,10 @@ NVDA の現在の挙動を前提に、プログレスバーをアクセシブル
 
 ## まとめ
 
-| 観点 | 状況 |
-|------|------|
-| NVDA の valuemax 無視 | 仕様バグではなく設計上の制約。「not planned」 |
-| 責任の所在 | ブラウザが正規化すべき（W3C仕様） |
-| 現実的な対応 | aria-valuetext + aria-live の併用 |
-| 長期展望 | ブラウザ側の改善が進めば自然解決 |
+- **NVDA の valuemax 無視**: 仕様バグではなく設計上の制約。「not planned」
+- **責任の所在**: ブラウザが正規化すべき（W3C仕様）
+- **現実的な対応**: aria-valuetext + aria-live の併用
+- **長期展望**: ブラウザ側の改善が進めば自然解決
 
 Web のプログレスバーのアクセシビリティは、ARIA 仕様・ブラウザ実装・スクリーンリーダー実装の 3 層が絡む複雑な問題です。仕様上「ブラウザがやるべき」とされていても、実際には各層で実装の差があるため、開発者側でのワークアラウンドが現実的な対策になります。`aria-valuetext` や `aria-live` リージョンの併用によって、現状の NVDA でも適切なフィードバックを提供することが可能です。
 
