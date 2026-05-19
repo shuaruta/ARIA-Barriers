@@ -111,5 +111,8 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 - [Slider control value always in 0-100 range (nvaccess/nvda#1535)](https://github.com/nvaccess/nvda/issues/1535)
 - [NVDA Doesn't Read As the Value of Certain Sliders Change (nvaccess/nvda#9669)](https://github.com/nvaccess/nvda/issues/9669)
 - [NVDA 2023.3 変更履歴](https://download.nvaccess.org/releases/2023.3/documentation/changes.html)
+- [WAI-ARIA Authoring Practices: Slider Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/slider/)
+- [APG: Range-related Properties](https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/)
+- [APG Rating Slider Example](https://mulder21c.github.io/aria-practices/examples/slider/slider-rating.html)
 - [MDN: input type="range"](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range)
 - [MDN: ARIA slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/slider_role)
