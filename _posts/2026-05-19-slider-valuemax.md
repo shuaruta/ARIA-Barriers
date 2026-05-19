@@ -35,6 +35,17 @@ document.getElementById('demo-slider').addEventListener('input', function() {
 });
 </script>
 
+```html
+<label for="demo-slider">評価（1〜5）:</label>
+<input type="range" id="demo-slider" min="1" max="5" value="3" step="1">
+<output id="demo-value" for="demo-slider">3</output>
+<script>
+document.getElementById('demo-slider').addEventListener('input', function() {
+  document.getElementById('demo-value').textContent = this.value;
+});
+</script>
+```
+
 NVDA でこのスライダーを操作すると、値の読み上げが min/max を考慮せず「3%」のようにパーセンテージで読まれることがあります。本来は「3」または「5段階中3」と読み上げられるべきです。
 
 ## Windows ネイティブのスライダー問題
@@ -88,12 +99,10 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 
 ## まとめ
 
-| 観点 | 状況 |
-|------|------|
-| MSAA 由来の 0-100 前提 | 設計上の制約。後方互換性のために残る |
-| NVDA の UIA スライダー修正 | 2023.3 で改善。ValuePattern 優先 |
-| Web スライダーの valuemax 問題 | ブラウザの API マッピングに依存。未解決 |
-| 実装者の現実解 | min/max を 0-100 に正規化、または aria-valuetext を併用 |
+- **MSAA 由来の 0-100 前提**: 設計上の制約で、後方互換性のために残り続けている
+- **NVDA の UIA スライダー修正**: 2023.3 で改善され、ValuePattern が優先されるように
+- **Web スライダーの valuemax 問題**: ブラウザの API マッピングに依存し、未解決
+- **実装者の現実解**: min/max を 0-100 に正規化するか、aria-valuetext を併用する
 
 プログレスバーとスライダーに共通するこの問題は、Windows アクセシビリティ API の歴史的な設計判断と、後から整備された Web 標準（ARIA）の間の「ずれ」に起因しています。仕様や実装が完全に一致する日を待つよりも、この「ずれ」を理解した上で、確実に動く実装を選ぶことが現実的な対応です。
 
