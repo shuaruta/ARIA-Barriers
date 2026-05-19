@@ -5,7 +5,7 @@ layout: default
 
 この記事は[24motz](https://x.com/24motz) が執筆しました。
 
-[前回の記事](/aria-barriers/2026/05/18/progress-bar-beep.html)では、Web のプログレスバーで `aria-valuemax` が無視され、NVDA のビープ音が誤った高さで鳴る問題を取り上げました。この問題の背景には、Windows のアクセシビリティ API に根付いた「範囲コントロールの値は常に 0-100 である」という前提があります。
+[前回の記事](https://aria-barriers.shuaruta.com/2026/05/18/progress-bar-beep.html)では、Web のプログレスバーで `aria-valuemax` が無視され、NVDA のビープ音が誤った高さで鳴る問題を取り上げました。この問題の背景には、Windows のアクセシビリティ API に根付いた「範囲コントロールの値は常に 0-100 である」という前提があります。
 
 今回は、この前提が **スライダー UI** にどのような問題を引き起こしてきたのか、そして NVDA がどのように対応したのかを見ていきます。
 
