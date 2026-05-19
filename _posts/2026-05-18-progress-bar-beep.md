@@ -158,7 +158,7 @@ NVDA のビープ音機能は、この分離を前提としていません。`ro
 
 ### meter 要素の値範囲
 
-- **Issue:** [Min and max value not read out for \u003cmeter\u003e element (nvaccess/nvda#16678)](https://github.com/nvaccess/nvda/issues/16678)
+- **Issue:** [Min and max value not read out for &lt;meter&gt; element (nvaccess/nvda#16678)](https://github.com/nvaccess/nvda/issues/16678)
   - `<meter>` 要素（および `role="meter"`）でも min/max 値が読み上げられません
 
 ## 実装者向けワークアラウンド
