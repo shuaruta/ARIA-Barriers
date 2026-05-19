@@ -97,7 +97,7 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 <output>3 / 5</output>
 ```
 
-この `aria-valuetext` による回避策は、実は [APG の Rating Slider 例](https://mulder21c.github.io/aria-practices/examples/slider/slider-rating.html)でも採用されています。APG の実装は、初期化時とフォーカス喪失時に「3 of 5 stars」のように最大値を含む文字列を `aria-valuetext` で提供しており、値変更のたびに最大値を繰り返す煩わしさを避ける工夫も施されています。APG が `aria-valuetext` を積極的に使っているのは、まさに「ブラウザ経由で valuemax がスクリーンリーダーに正しく伝わらない」という現実への対応と言えるでしょう。
+この `aria-valuetext` による回避策は、実は [APG の Rating Slider 例](https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-rating/)でも採用されています。APG の実装は、初期化時とフォーカス喪失時に「3 of 5 stars」のように最大値を含む文字列を `aria-valuetext` で提供しており、値変更のたびに最大値を繰り返す煩わしさを避ける工夫も施されています。APG が `aria-valuetext` を積極的に使っているのは、まさに「ブラウザ経由で valuemax がスクリーンリーダーに正しく伝わらない」という現実への対応と言えるでしょう。
 
 ## まとめ
 
@@ -115,6 +115,6 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 - [NVDA 2023.3 変更履歴](https://download.nvaccess.org/releases/2023.3/documentation/changes.html)
 - [WAI-ARIA Authoring Practices: Slider Pattern](https://www.w3.org/WAI/ARIA/apg/patterns/slider/)
 - [APG: Range-related Properties](https://www.w3.org/WAI/ARIA/apg/practices/range-related-properties/)
-- [APG Rating Slider Example](https://mulder21c.github.io/aria-practices/examples/slider/slider-rating.html)
+- [APG Rating Slider Example](https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-rating/)
 - [MDN: input type="range"](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/range)
 - [MDN: ARIA slider role](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/slider_role)
