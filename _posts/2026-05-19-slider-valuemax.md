@@ -97,6 +97,8 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 <output>3 / 5</output>
 ```
 
+この `aria-valuetext` による回避策は、実は [APG の Rating Slider 例](https://mulder21c.github.io/aria-practices/examples/slider/slider-rating.html)でも採用されています。APG の実装は、初期化時とフォーカス喪失時に「3 of 5 stars」のように最大値を含む文字列を `aria-valuetext` で提供しており、値変更のたびに最大値を繰り返す煩わしさを避ける工夫も施されています。APG が `aria-valuetext` を積極的に使っているのは、まさに「ブラウザ経由で valuemax がスクリーンリーダーに正しく伝わらない」という現実への対応と言えるでしょう。
+
 ## まとめ
 
 - **MSAA 由来の 0-100 前提**: 設計上の制約で、後方互換性のために残り続けている
