@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Jekyll: serve",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "bundle exec jekyll serve --host 0.0.0.0",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "pattern": "Server address: (https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
+    },
+    {
+      "name": "Jekyll: serve (localhost only)",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "bundle exec jekyll serve",
+      "cwd": "${workspaceFolder}",
+      "serverReadyAction": {
+        "pattern": "Server address: (https?://\\S+)",
+        "uriFormat": "%s",
+        "action": "openExternally"
+      }
+    }
+  ]
+}

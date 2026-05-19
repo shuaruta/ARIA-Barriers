@@ -12,7 +12,7 @@
 ローカルで記事を表示して検証する場合は、**Jekyll サーバーを WSL2 で起動する**。
 
 - **前提**
-  - `bundle install` と **`npm i` は済んでいる**（別途 [README の手順](../README.md) で実施済みとする）。
+  - `bundle install` と **`npm i` は済んでいる**（別途 [ローカル開発環境の手順](development.md) で実施済みとする）。
 - **起動手順**
   1. WSL2 のターミナル（Ubuntu など）を開く。
   2. プロジェクトのルートに移動する（例: `cd /mnt/c/shuaruta/ARIA-Barriers`）。

@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# CI (.github/workflows/jekyll.yml) と同じ Jekyll ビルド（--baseurl 除く）
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+export JEKYLL_ENV=production
+exec bundle exec jekyll build --trace
