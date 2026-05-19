@@ -33,6 +33,10 @@ a {
     @apply text-blue-900 hover:text-blue-700 underline;
 }
 
+a:focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-blue-800;
+}
+
 header a {
     @apply no-underline;
 }
@@ -49,6 +53,75 @@ img {
     @apply mt-4 max-w-full md:max-w-md;
 }
 
+/* トップページ */
+.home-intro {
+    @apply text-center max-w-2xl mx-auto mb-10;
+}
+
+.home-intro__lead {
+    @apply text-base md:text-lg leading-relaxed;
+}
+
+.home-intro__image {
+    @apply block mx-auto mt-6 w-auto max-w-56 sm:max-w-64 md:max-w-xs;
+}
+
+.post-list-section {
+    @apply mt-8 md:mt-12 max-w-3xl mx-auto w-full;
+}
+
+.post-list__heading {
+    @apply text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 pt-0 pb-0 mt-0;
+}
+
+.post-list {
+    @apply list-none m-0 p-0 w-full;
+}
+
+.post-list .post-list__item {
+    @apply m-0 p-0 py-0 mb-0 mt-0;
+}
+
+.post-list__link {
+    @apply flex flex-col gap-1 no-underline;
+    @apply px-3 py-3 md:px-4 md:py-4 min-h-[3rem];
+    @apply border-b border-gray-200 rounded-sm;
+    @apply hover:bg-gray-50;
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800;
+}
+
+@media (min-width: 768px) {
+    .post-list__link {
+        @apply flex-row items-baseline justify-between gap-6;
+    }
+}
+
+.post-list__title {
+    @apply text-base md:text-lg font-semibold text-blue-900 leading-snug;
+}
+
+.post-list__link:hover .post-list__title,
+.post-list__link:focus-visible .post-list__title {
+    @apply text-blue-800 underline;
+}
+
+.post-list__date {
+    @apply text-sm text-gray-600 leading-normal shrink-0;
+}
+
+@media (min-width: 768px) {
+    .post-list__date {
+        @apply text-right tabular-nums;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-list__link {
+        transition: none;
+    }
+}
+
+/* 記事一覧以外の ul は従来どおり */
 .content-box {
     @apply text-center;
 }
