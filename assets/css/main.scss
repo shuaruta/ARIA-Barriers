@@ -10,11 +10,36 @@ h1 {
 }
 
 h2 {
-    @apply text-center text-2xl pt-12 pb-10 mt-12;
+    @apply text-left text-3xl font-bold pt-8 pb-3 mt-10 mb-6 border-b-2 border-stone-300;
 }
 
 h3 {
-    @apply text-2xl font-bold py-5 mt-12;
+    @apply text-2xl font-bold py-3 mt-8 mb-4;
+}
+
+.post-header {
+    @apply text-center pt-10 pb-6 mb-8 border-b-2 border-stone-200;
+}
+
+.post-header__title {
+    @apply text-3xl md:text-4xl font-bold leading-tight pt-0 pb-4 mt-0;
+}
+
+.post-header__meta {
+    @apply flex flex-wrap justify-center gap-3 text-sm text-stone-600 mt-2;
+}
+
+.post-header__date,
+.post-header__author {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 bg-stone-100 rounded-full;
+}
+
+code {
+    @apply bg-stone-100 text-stone-800 px-1.5 py-0.5 rounded text-sm font-mono;
+}
+
+pre code {
+    @apply bg-transparent p-0 rounded-none;
 }
 
 ul {
@@ -37,8 +62,18 @@ a:focus-visible {
     @apply outline outline-[3px] outline-offset-2 outline-stone-900;
 }
 
+.post-header__author a {
+    @apply text-stone-700 no-underline hover:underline;
+}
+
 button:focus-visible {
     @apply outline outline-[3px] outline-offset-2 outline-stone-900;
+}
+
+button.ghost-focus-btn:focus,
+button.ghost-focus-btn:focus-visible {
+    outline: 3px solid #b91c1c;
+    outline-offset: 3px;
 }
 
 header a {
@@ -51,6 +86,10 @@ p {
 
 p + p {
     @apply mt-4;
+}
+
+strong {
+    @apply font-bold text-stone-900;
 }
 
 blockquote {
@@ -67,7 +106,7 @@ img {
 
 /* トップページ */
 .home-intro {
-    @apply text-center max-w-2xl mx-auto mb-10;
+    @apply text-center max-w-2xl mx-auto mb-10 pt-4;
 }
 
 .home-intro__lead {
@@ -75,31 +114,40 @@ img {
 }
 
 .home-intro__image {
-    @apply block mx-auto mt-6 w-auto max-w-56 sm:max-w-64 md:max-w-xs;
+    @apply block mx-auto mt-8 w-auto max-w-56 sm:max-w-64 md:max-w-xs;
+}
+
+.home {
+    @apply pt-4;
+}
+
+.home h2 {
+    @apply text-center border-b-0 pt-0 mt-0 mb-0 pb-2;
 }
 
 .post-list-section {
-    @apply mt-8 md:mt-12 max-w-3xl mx-auto w-full;
+    @apply mt-12 md:mt-16 max-w-3xl mx-auto w-full;
 }
 
 .post-list__heading {
-    @apply text-xl md:text-2xl font-bold text-center mb-4 md:mb-6 pt-0 pb-0 mt-0;
+    @apply text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 pt-0 pb-0 mt-0;
 }
 
 .post-list {
     @apply list-none m-0 p-0 w-full;
+    @apply grid gap-3 md:gap-4;
 }
 
 .post-list .post-list__item {
-    @apply m-0 p-0 py-0 mb-0 mt-0;
+    @apply m-0 p-0;
 }
 
 .post-list__link {
     @apply flex flex-col gap-1 no-underline;
-    @apply px-3 py-3 md:px-4 md:py-4 min-h-[3rem];
-    @apply border-b border-gray-200 rounded-sm;
-    @apply hover:bg-gray-50;
-    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-800;
+    @apply px-4 py-4 md:px-5 md:py-5 min-h-[3.5rem];
+    @apply bg-stone-100 border border-stone-200 rounded-lg shadow-sm;
+    @apply hover:bg-stone-200 hover:border-stone-300 transition-colors duration-200;
+    @apply focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-2 focus-visible:outline-stone-900;
 }
 
 @media (min-width: 768px) {
@@ -109,16 +157,16 @@ img {
 }
 
 .post-list__title {
-    @apply text-base md:text-lg font-semibold text-blue-900 leading-snug;
+    @apply text-base md:text-lg font-semibold text-stone-800 leading-snug;
 }
 
 .post-list__link:hover .post-list__title,
 .post-list__link:focus-visible .post-list__title {
-    @apply text-blue-800 underline;
+    @apply text-stone-700 underline;
 }
 
 .post-list__date {
-    @apply text-sm text-gray-600 leading-normal shrink-0;
+    @apply text-sm text-stone-500 leading-normal shrink-0;
 }
 
 @media (min-width: 768px) {

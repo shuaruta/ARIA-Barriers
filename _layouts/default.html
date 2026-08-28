@@ -18,14 +18,31 @@
         </a>
       {% endif %}
     </header>
-    <main class="container mx-auto p-5 pb-12">
+    <main class="container mx-auto px-5 pb-16 max-w-3xl">
       {% if page.title == 'Home' %}
         <div class="home">
           {{ content }}
         </div>
       {% else %}
-        <h2>{{ page.title }}</h2>
-        <div class="text-center mb-10">{{ page.date | date: '%Y年%m月%d日' }}</div>
+        <header class="post-header">
+          <h2 class="post-header__title">{{ page.title }}</h2>
+          <div class="post-header__meta">
+            <span class="post-header__date">
+              <i class="far fa-calendar-alt" aria-hidden="true"></i>
+              {{ page.date | date: '%Y年%m月%d日' }}
+            </span>
+            {% if page.author %}
+              <span class="post-header__author">
+                <i class="far fa-user" aria-hidden="true"></i>
+                {% if page.author.url %}
+                  <a href="{{ page.author.url }}" rel="author">{{ page.author.name }}</a>
+                {% else %}
+                  {{ page.author }}
+                {% endif %}
+              </span>
+            {% endif %}
+          </div>
+        </header>
         {{ content }}
       {% endif %}
     </main>

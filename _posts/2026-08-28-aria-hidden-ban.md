@@ -1,9 +1,10 @@
 ---
 title: 正しく使えないなら禁止するしかない — aria-hidden と「見えない仕様」の苛立ち
 layout: default
+author:
+  name: 24motz
+  url: https://x.com/24motz
 ---
-
-この記事は[24motz](https://x.com/24motz) が執筆しました。
 
 2026年8月、X で `aria-hidden` を「禁止してしまえばいいのでは」という議論が盛り上がりました。2年前に[「aria-hidden によって、サイト自体が閲覧できなくなることもある」](https://aria-barriers.shuaruta.com/2024/04/05/evil-aria-hidden.html)という記事を書いた身としては、また同じ話が巡ってきたか、という思いです。
 
@@ -111,17 +112,9 @@ close.addEventListener('click', () => {
   <p class="mb-3">下のボタンは、画面には表示されています。Tab キーでもフォーカスが当たります。しかしスクリーンリーダーでは読まれません。</p>
   <p class="text-sm text-gray-500 mb-3">（この枠内の div には <code>aria-hidden="true"</code> が設定されています）</p>
   <div aria-hidden="true">
-    <button type="button" class="ghost-focus-btn px-4 py-2.5 min-h-[44px] bg-green-700 text-white rounded shadow-sm">見えているのに読まれないボタン</button>
+    <button type="button" class="ghost-focus-btn px-4 py-2.5 min-h-[44px] bg-white border-2 border-stone-400 text-stone-800 rounded shadow-sm font-medium hover:bg-stone-50">見えているのに読まれないボタン</button>
   </div>
 </div>
-
-<style>
-.ghost-focus-btn:focus,
-.ghost-focus-btn:focus-visible {
-  outline: 3px solid #b91c1c;
-  outline-offset: 3px;
-}
-</style>
 
 ```html
 <div aria-hidden="true">
