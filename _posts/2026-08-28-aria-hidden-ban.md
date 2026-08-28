@@ -144,7 +144,7 @@ toggleGood.addEventListener('click', () => {
 <div class="grid md:grid-cols-2 gap-4 my-6">
   <div class="p-5 border border-red-300 rounded-lg shadow-sm bg-red-50">
     <p class="font-bold text-red-800 mb-3">❌ 間違った例</p>
-    <p class="mb-3">下の赤い警告は、画面には大きく表示されています。しかし、スクリーンリーダーの順次読みでは読まれません。</p>
+    <p class="mb-3">下の赤い警告は、画面には大きく表示されています。しかし、ブラウズモードでの上下移動では読まれません。</p>
     <p class="text-sm text-gray-500 mb-3">（この枠内の div には <code>aria-hidden="true"</code> が設定されています）</p>
     <div aria-hidden="true" class="border-l-4 border-red-600 bg-red-100 p-4 rounded">
       <p class="text-red-700 font-bold mb-1">⚠️ 重要なお知らせ</p>
@@ -153,7 +153,7 @@ toggleGood.addEventListener('click', () => {
   </div>
   <div class="p-5 border border-green-300 rounded-lg shadow-sm bg-green-50">
     <p class="font-bold text-green-800 mb-3">✅ 正しい例</p>
-    <p class="mb-3">同じ見た目の警告ですが、<code>aria-hidden="true"</code> がついていません。スクリーンリーダーの順次読みでも読めます。</p>
+    <p class="mb-3">同じ見た目の警告ですが、<code>aria-hidden="true"</code> がついていません。ブラウズモードでの上下移動でも読めます。</p>
     <div class="border-l-4 border-green-600 bg-green-100 p-4 rounded">
       <p class="text-green-700 font-bold mb-1">⚠️ 重要なお知らせ</p>
       <p class="text-green-700">2026年9月17日（木）15:00〜17:00 に、WAIC アクセシビリティ サポーテッド（AS）テスト体験会を開催します。参加無料・先着30名。</p>
