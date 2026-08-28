@@ -4,7 +4,7 @@
     {
       "label": "CI: jekyll build",
       "type": "shell",
-      "command": "bundle exec jekyll build --trace",
+      "command": "mise exec -- bundle exec jekyll build --trace",
       "options": {
         "cwd": "${workspaceFolder}",
         "env": {
@@ -20,7 +20,7 @@
     {
       "label": "npm install",
       "type": "shell",
-      "command": "npm install",
+      "command": "mise exec -- npm install",
       "options": {
         "cwd": "${workspaceFolder}"
       },

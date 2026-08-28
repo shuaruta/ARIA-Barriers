@@ -34,7 +34,11 @@ a {
 }
 
 a:focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-blue-800;
+    @apply outline outline-[3px] outline-offset-2 outline-stone-900;
+}
+
+button:focus-visible {
+    @apply outline outline-[3px] outline-offset-2 outline-stone-900;
 }
 
 header a {
@@ -47,6 +51,14 @@ p {
 
 p + p {
     @apply mt-4;
+}
+
+blockquote {
+    @apply border-l-4 border-stone-500 pl-4 py-2 my-6 bg-stone-100 italic text-stone-700;
+}
+
+blockquote p {
+    @apply my-0;
 }
 
 img {
