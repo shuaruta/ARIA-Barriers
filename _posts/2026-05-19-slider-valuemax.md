@@ -9,7 +9,7 @@ layout: default
 
 今回は、この前提が **スライダー UI** にどのような問題を引き起こしてきたのか、そして NVDA がどのように対応したのかを見ていきます。
 
-## HTML のスライダーと ARIA の slider ロール
+### HTML のスライダーと ARIA の slider ロール
 
 HTML にはネイティブのスライダー要素として `<input type="range">` が用意されています。
 
@@ -48,7 +48,7 @@ document.getElementById('demo-slider').addEventListener('input', function() {
 
 NVDA でこのスライダーを操作すると、値の読み上げが min/max を考慮せず「3%」のようにパーセンテージで読まれることがあります。本来は「3」または「5段階中3」と読み上げられるべきです。
 
-## Windows ネイティブのスライダー問題
+### Windows ネイティブのスライダー問題
 
 この「値が常にパーセンテージ化される」問題は、Web よりも先に Windows ネイティブアプリケーションで顕在化していました。
 
@@ -66,7 +66,7 @@ NVDA でこのスライダーを操作すると、値の読み上げが min/max 
 
 これらの問題の根底にあるのは、MSAA（Microsoft Active Accessibility）以来の設計前提です。MSAA の範囲コントロールは、値を常にパーセンテージとして返すことが一般的でした。この前提が UIA に移行した後も、互換性のために残り続けていたのです。
 
-## NVDA 2023.3 での修正
+### NVDA 2023.3 での修正
 
 NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 
@@ -80,7 +80,7 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 - この修正は **UIA を直接使うネイティブアプリケーション**が対象です
 - Web の ARIA `slider` は、ブラウザが ARIA 属性を UIA（または IAccessible2）にマッピングするレイヤーを経由するため、同じ問題が別の形で残っています
 
-## Web のスライダーでの valuemax 問題
+### Web のスライダーでの valuemax 問題
 
 前回の記事で詳しく見たように、NVDA はブラウザがアクセシビリティ API に渡す値を「すでに正規化されたパーセンテージ」と前提して扱います。この前提はプログレスバーでもスライダーでも同じです。
 
@@ -99,7 +99,7 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 
 この `aria-valuetext` による回避策は、実は [APG の Rating Slider 例](https://www.w3.org/WAI/ARIA/apg/patterns/slider/examples/slider-rating/)でも採用されています。APG の実装は、初期化時とフォーカス喪失時に「3 of 5 stars」のように最大値を含む文字列を `aria-valuetext` で提供しており、値変更のたびに最大値を繰り返す煩わしさを避ける工夫も施されています。APG が `aria-valuetext` を積極的に使っているのは、まさに「ブラウザ経由で valuemax がスクリーンリーダーに正しく伝わらない」という現実への対応と言えるでしょう。
 
-## まとめ
+### まとめ
 
 - **MSAA 由来の 0-100 前提**: 設計上の制約で、後方互換性のために残り続けている
 - **NVDA の UIA スライダー修正**: 2023.3 で改善され、ValuePattern が優先されるように
@@ -108,7 +108,7 @@ NVDA 2023.3 で、UIA スライダーの値解釈が改善されました。
 
 プログレスバーとスライダーに共通するこの問題は、Windows アクセシビリティ API の歴史的な設計判断と、後から整備された Web 標準（ARIA）の間の「ずれ」に起因しています。仕様や実装が完全に一致する日を待つよりも、この「ずれ」を理解した上で、確実に動く実装を選ぶことが現実的な対応です。
 
-## 参考
+### 参考
 
 - [Slider control value always in 0-100 range (nvaccess/nvda#1535)](https://github.com/nvaccess/nvda/issues/1535)
 - [NVDA Doesn't Read As the Value of Certain Sliders Change (nvaccess/nvda#9669)](https://github.com/nvaccess/nvda/issues/9669)

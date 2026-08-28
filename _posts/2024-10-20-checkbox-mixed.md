@@ -13,7 +13,7 @@ layout: default
 
 さて、どうしたらいいのでしょうか。
 
-## APGの実装
+### APGの実装
 
 ARIA Authoring Practices Guide (APG)
 [Checkbox Example (Mixed-State)](https://www.w3.org/WAI/ARIA/apg/patterns/checkbox/examples/checkbox-mixed/) の実装を見てみましょう。
@@ -101,7 +101,7 @@ APGの実装では、OSのハイコントラストモードを考慮してCSSで
   すべての具材
 </div>
 
-## 改善したつもりなのに
+### 改善したつもりなのに
 
 混合状態のチェックボックスを、div 要素ではなく、input 要素で実装してみます。
 
@@ -145,7 +145,7 @@ aria-checked="mixed" という属性があるのに「チェックボックス �
 
 もうすこしよく考えてみましょう。
 
-## 強いネイティブセマンティクス
+### 強いネイティブセマンティクス
 
 HTML標準のチェックボックス (input) 要素には、以下の値があります。
 
@@ -177,7 +177,7 @@ HTML の属性では制御できないとのことなので JavaScript を直さ
 
 でも input 要素でもともと混合状態がサポートされているのであれば、もしかして WAI-ARIA はいらないのでは？
 
-## 標準的な要素を使用した実装
+### 標準的な要素を使用した実装
 
 標準的なチェックボックス要素を使用しつつ、混合状態を表現する方法を考えてみましょう。
 
@@ -253,7 +253,7 @@ window.addEventListener('load', () => {
 });
 ```
 
-## aria-checked を使わないデモ
+### aria-checked を使わないデモ
 
 <fieldset class="checkbox-mixed p-4 border rounded-md bg-gray-50 mt-4">
   <legend class="text-lg font-semibold mb-2">サンドイッチの具材</legend>
@@ -328,7 +328,7 @@ ul.no-bullets {
 }
 </style>
 
-## aria-controls 属性
+### aria-controls 属性
 
 ところで `aria-controls`属性がスクリーンリーダーによって適切にサポートされている場合、以下が期待されます。
 
@@ -339,7 +339,7 @@ ul.no-bullets {
 
 aria-controls 属性は[アクセシビリティ サポーテッド](https://waic.jp/guideline/as/)ではないかも知れないですね。
 
-## やっぱり less ARIA is better
+### やっぱり less ARIA is better
 
 Accessible Rich Internet Applications (WAI-ARIA) 1.3 日本語訳 [checkboxロール](https://momdo.github.io/wai-aria-1.3/#checkbox) の注には、
 
