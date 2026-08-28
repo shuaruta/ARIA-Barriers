@@ -38,17 +38,28 @@ author:
 
 一般的なバグは、作った本人が自分の目で確認して気づけます。レイアウトが崩れていれば見えます。ボタンが動かなければクリックして気づけます。しかし `aria-hidden` の誤用は、晴眼の開発者にとっては「存在しないバグ」です。フィードバックループが、そもそも成立していないのです。
 
-### デモ: 閉じたはずのダイアログ
+### デモ 1: 開いたはずの折りたたみ
 
-この構造を、実際に体験してみてください。下のボタンでダイアログを開き、閉じてみてください。
+この構造を、実際に体験してみてください。下の 2 つの折りたたみを、それぞれ「開く→閉じる→開く」と操作してみてください。
 
-<div class="my-6 p-5 border border-gray-300 rounded-lg shadow-sm bg-stone-50">
-  <p id="demo1-main" class="mb-3">ここはメインコンテンツです。この文章はスクリーンリーダーで読めるはずです。</p>
-  <button type="button" id="demo1-open" class="px-4 py-2.5 min-h-[44px] bg-blue-700 text-white rounded shadow-sm">ダイアログを開く</button>
-  <div id="demo1-dialog" role="dialog" aria-labelledby="demo1-title" hidden class="mt-4 p-4 border-2 border-blue-400 rounded-lg bg-blue-50">
-    <p id="demo1-title" class="font-bold mb-2">設定ダイアログ</p>
-    <p class="mb-3">ここはダイアログの中身です。</p>
-    <button type="button" id="demo1-close" class="px-4 py-2.5 min-h-[44px] bg-gray-700 text-white rounded shadow-sm">閉じる</button>
+<div class="grid md:grid-cols-2 gap-4 my-6">
+  <div class="p-5 border border-red-300 rounded-lg shadow-sm bg-red-50">
+    <p class="font-bold text-red-800 mb-3">❌ 間違った例</p>
+    <p class="mb-3">WAIC のアクセシビリティ サポーテッド（AS）テスト体験会を、2026年9月17日（木）15:00〜17:00 に開催します。</p>
+    <button type="button" id="demo1-bad-toggle" class="px-4 py-2.5 min-h-[44px] bg-red-700 text-white rounded shadow-sm"><span id="demo1-bad-toggle-label">続きを読む</span></button>
+    <div id="demo1-bad-body" class="mt-4 p-4 border-l-4 border-red-400 bg-red-100 rounded hidden" aria-hidden="true">
+      <p class="mb-3">この体験会では、ASテストに基づいた検証作業の方法と、検証結果の提出方法を学び、実際に検証作業を体験できます。普段お使いのブラウザや支援技術を使って、どなたでも参加できます。</p>
+      <p class="mb-3">字幕（UDトーク等）や Zoom の文字起こしも提供されます。ぜひお気軽にご参加ください。</p>
+    </div>
+  </div>
+  <div class="p-5 border border-green-300 rounded-lg shadow-sm bg-green-50">
+    <p class="font-bold text-green-800 mb-3">✅ 正しい例</p>
+    <p class="mb-3">WAIC のアクセシビリティ サポーテッド（AS）テスト体験会を、2026年9月17日（木）15:00〜17:00 に開催します。</p>
+    <button type="button" id="demo1-good-toggle" class="px-4 py-2.5 min-h-[44px] bg-green-700 text-white rounded shadow-sm"><span id="demo1-good-toggle-label">続きを読む</span></button>
+    <div id="demo1-good-body" class="mt-4 p-4 border-l-4 border-green-400 bg-green-100 rounded hidden" aria-hidden="true">
+      <p class="mb-3">この体験会では、ASテストに基づいた検証作業の方法と、検証結果の提出方法を学び、実際に検証作業を体験できます。普段お使いのブラウザや支援技術を使って、どなたでも参加できます。</p>
+      <p class="mb-3">字幕（UDトーク等）や Zoom の文字起こしも提供されます。ぜひお気軽にご参加ください。</p>
+    </div>
   </div>
 </div>
 
@@ -56,73 +67,115 @@ author:
 
 <script>
 (function () {
-  var main = document.getElementById('demo1-main');
-  var openBtn = document.getElementById('demo1-open');
-  var dialog = document.getElementById('demo1-dialog');
-  var closeBtn = document.getElementById('demo1-close');
+  function setupToggle(bodyId, toggleId, labelId, good) {
+    var body = document.getElementById(bodyId);
+    var toggleBtn = document.getElementById(toggleId);
+    var toggleLabel = document.getElementById(labelId);
+
+    toggleBtn.addEventListener('click', function () {
+      var isHidden = body.classList.contains('hidden');
+      if (isHidden) {
+        body.classList.remove('hidden');
+        if (good) {
+          // 正しい例：開くときに aria-hidden を外す
+          body.removeAttribute('aria-hidden');
+        }
+        // 間違った例：開くときに aria-hidden を外し忘れている！
+        toggleLabel.textContent = '閉じる';
+      } else {
+        body.classList.add('hidden');
+        // 閉じるときに aria-hidden をつけて隠す（ここまでは正しい）
+        body.setAttribute('aria-hidden', 'true');
+        toggleLabel.textContent = '続きを読む';
+      }
+    });
+  }
+
+  setupToggle('demo1-bad-body', 'demo1-bad-toggle', 'demo1-bad-toggle-label', false);
+  setupToggle('demo1-good-body', 'demo1-good-toggle', 'demo1-good-toggle-label', true);
+
   var resetBtn = document.getElementById('demo1-reset');
-
-  openBtn.addEventListener('click', function () {
-    dialog.hidden = false;
-    // 背景を隠す（ここまでは正しい）
-    main.setAttribute('aria-hidden', 'true');
-    openBtn.setAttribute('aria-hidden', 'true');
-  });
-
-  closeBtn.addEventListener('click', function () {
-    dialog.hidden = true;
-    // ここで aria-hidden を外し忘れている！
-    // main.removeAttribute('aria-hidden');
-    // openBtn.removeAttribute('aria-hidden');
-  });
-
   resetBtn.addEventListener('click', function () {
-    dialog.hidden = true;
-    main.removeAttribute('aria-hidden');
-    openBtn.removeAttribute('aria-hidden');
+    ['demo1-bad-body', 'demo1-good-body'].forEach(function (id) {
+      var body = document.getElementById(id);
+      body.classList.add('hidden');
+      body.setAttribute('aria-hidden', 'true');
+    });
+    document.getElementById('demo1-bad-toggle-label').textContent = '続きを読む';
+    document.getElementById('demo1-good-toggle-label').textContent = '続きを読む';
   });
 })();
 </script>
 
 ```html
-<button id="open">ダイアログを開く</button>
-<p id="main">ここはメインコンテンツです。</p>
-<div id="dialog" role="dialog" hidden>…</div>
+<!-- ❌ 間違った例：開くときに aria-hidden を外し忘れる -->
+<button id="toggle-bad">続きを読む</button>
+<div id="body-bad" class="hidden" aria-hidden="true">
+  <p>この体験会では …</p>
+</div>
+
+<!-- ✅ 正しい例：開閉に合わせて aria-hidden を切り替える -->
+<button id="toggle-good">続きを読む</button>
+<div id="body-good" class="hidden" aria-hidden="true">
+  <p>この体験会では …</p>
+</div>
 <script>
-open.addEventListener('click', () => {
-  dialog.hidden = false;
-  main.setAttribute('aria-hidden', 'true'); // 背景を隠す
-});
-close.addEventListener('click', () => {
-  dialog.hidden = true;
-  // aria-hidden を外し忘れている！
+toggleGood.addEventListener('click', () => {
+  const isHidden = bodyGood.classList.contains('hidden');
+  if (isHidden) {
+    bodyGood.classList.remove('hidden');
+    bodyGood.removeAttribute('aria-hidden'); // 開いたので支援技術からも見えるように
+  } else {
+    bodyGood.classList.add('hidden');
+    bodyGood.setAttribute('aria-hidden', 'true'); // 閉じたので隠す
+  }
 });
 </script>
 ```
 
-ダイアログを閉じた後、スクリーンリーダーでこのページを読んでみてください。メインコンテンツが読めなくなっているはずです。**画面には普通に表示されているのに**。
+間違った例の「続きを読む」を 2 回押して、もう一度開いた後、スクリーンリーダーで読んでみてください。追加の本文が読めなくなっているはずです。**画面には普通に表示されているのに**。
 
-作った本人は、ダイアログを開いて閉じて、見た目が元に戻ったことを確認して「完成」とします。しかし支援技術の世界では、メインコンテンツは `aria-hidden` に閉じ込められたままです。このバグに気づけるのは、スクリーンリーダーを使う人だけです。
+一方、正しい例では、開いたときに `aria-hidden` が外されるので、スクリーンリーダーでも追加の本文が読めます。作った本人は、両方とも同じように見えるはずだと思います。しかし支援技術の世界では、間違った例の追加の本文は `aria-hidden` に閉じ込められたままです。この違いに気づけるのは、スクリーンリーダーを使う人だけです。
 
-### デモ: 見えているのに読まれないボタン
+### デモ 2: 見えているのに読まれない警告
 
-もう一つ、よくあるパターンです。`aria-hidden` の中に、フォーカス可能な要素を置いてしまうケース。
+もう一つ、よくあるパターンです。`aria-hidden` の中に、重要な情報を置いてしまうケース。
 
-<div class="my-6 p-5 border border-gray-300 rounded-lg shadow-sm bg-stone-50">
-  <p class="mb-3">下のボタンは、画面には表示されています。Tab キーでもフォーカスが当たります。しかし、スクリーンリーダーの順次読みや読み上げ対象の一覧には現れません。</p>
-  <p class="text-sm text-gray-500 mb-3">（この枠内の div には <code>aria-hidden="true"</code> が設定されています）</p>
-  <div aria-hidden="true">
-    <button type="button" class="ghost-focus-btn px-4 py-2.5 min-h-[44px] bg-white border-2 border-stone-400 text-stone-800 rounded shadow-sm font-medium hover:bg-stone-50">見えているのに読まれないボタン</button>
+<div class="grid md:grid-cols-2 gap-4 my-6">
+  <div class="p-5 border border-red-300 rounded-lg shadow-sm bg-red-50">
+    <p class="font-bold text-red-800 mb-3">❌ 間違った例</p>
+    <p class="mb-3">下の赤い警告は、画面には大きく表示されています。しかし、スクリーンリーダーの順次読みでは読まれません。</p>
+    <p class="text-sm text-gray-500 mb-3">（この枠内の div には <code>aria-hidden="true"</code> が設定されています）</p>
+    <div aria-hidden="true" class="border-l-4 border-red-600 bg-red-100 p-4 rounded">
+      <p class="text-red-700 font-bold mb-1">⚠️ 重要なお知らせ</p>
+      <p class="text-red-700">2026年9月17日（木）15:00〜17:00 に、WAIC アクセシビリティ サポーテッド（AS）テスト体験会を開催します。参加無料・先着30名。</p>
+    </div>
+  </div>
+  <div class="p-5 border border-green-300 rounded-lg shadow-sm bg-green-50">
+    <p class="font-bold text-green-800 mb-3">✅ 正しい例</p>
+    <p class="mb-3">同じ見た目の警告ですが、<code>aria-hidden="true"</code> がついていません。スクリーンリーダーの順次読みでも読めます。</p>
+    <div class="border-l-4 border-green-600 bg-green-100 p-4 rounded">
+      <p class="text-green-700 font-bold mb-1">⚠️ 重要なお知らせ</p>
+      <p class="text-green-700">2026年9月17日（木）15:00〜17:00 に、WAIC アクセシビリティ サポーテッド（AS）テスト体験会を開催します。参加無料・先着30名。</p>
+    </div>
   </div>
 </div>
 
 ```html
+<!-- ❌ 重要な情報を aria-hidden の中に入れてしまう -->
 <div aria-hidden="true">
-  <button>見えているのに読まれないボタン</button>
+  <p class="text-red-700 font-bold">⚠️ 重要なお知らせ</p>
+  <p class="text-red-700">2026年9月17日（木）15:00〜17:00 …</p>
+</div>
+
+<!-- ✅ 正しい例：aria-hidden を外す -->
+<div>
+  <p class="text-red-700 font-bold">⚠️ 重要なお知らせ</p>
+  <p class="text-red-700">2026年9月17日（木）15:00〜17:00 …</p>
 </div>
 ```
 
-WAI-ARIA の仕様は、`aria-hidden="true"` を付けた要素の中にフォーカス可能な要素を置くことを明確に禁じています。しかし、これもまた「見た目には何も起きない」ので、作った本人は気づけません。Tab キーでフォーカスが当たるので、NVDA では `b` や `NVDA+Tab` などのフォーカスに基づく操作では読むことができます。ただし順次読みの流れの中では「ブランク」としか言わず、全体の構造から見失われます——晴眼の開発者には、この「幽霊フォーカス」を体験する手段がありません。
+WAI-ARIA の仕様は、重要な情報を `aria-hidden="true"` の中に置くことを禁じています。しかし、これもまた「見た目には何も起きない」ので、作った本人は気づけません。視覚的には目立つ警告なのに、スクリーンリーダーではまるごと消えてしまいます——晴眼の開発者には、この「見えるのに読めない」情報を体験する手段がありません。
 
 ## 見えないものを見えるようにする試み
 
@@ -141,6 +194,10 @@ WAI-ARIA の仕様は、`aria-hidden="true"` を付けた要素の中にフォ�
 `aria-hidden` を誤用してしまう開発者は、そもそも「支援技術にしか見えない世界」の存在を知りません。知らないから、見ようとも思わない。見ようと思わないから、可視化ツールにもたどり着かない。可視化ツールは、すでに「見たい」と思っている人にしか届かないのです。
 
 これは、ymrl さんのツールの限界ではなく、この問題の構造そのものです。どんなに優れた可視化ツールを作っても、「関心のない人」には届かない。だから `aria-hidden` の誤用は、なくならない。
+
+ここで、もう一つの流れに触れておきたいと思います。先ほどデモ1で「閉じたら `aria-hidden` が残る」と書きましたが、実は**ブラウザ側にも支援技術側にも、「見えない要素」を無理やり読ませようという動き**があります。たとえば Chromium 系ブラウザでは、フォーカスされた要素に対して `aria-hidden` を無視する「フォーカス時の修復」が WAI-ARIA 1.2 仕様に基づいて実装されています。これは、誤用された `aria-hidden` によってユーザーが情報にアクセスできなくなることを防ぐための安全装置です。詳しくは、[「NVDA のブラウズモードで「幅0・高さ0」のコントロールが一貫して読めるようになる変更」](/2026/02/15/nvda-zero-size-controls-browse-mode.html)の「関連する話題：aria-hidden と「フォーカス時の修復」」を参照してください。
+
+このような仕様上の「救済措置」が存在するということは、同時にこういうことでもあります：**`aria-hidden` の誤用が深刻な問題として認識されている一方で、ブラウザや支援技術側でその影響を打ち消そうという動きも出てきている**。極端に言えば、「`aria` を無視して、DOM と見た目を信じた方がユーザーにとって安全な場合がある」という考え方は、突飛な空想ではないのです。
 
 ## 「禁止する」という選択肢の意味
 
