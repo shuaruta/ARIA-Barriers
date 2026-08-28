@@ -109,7 +109,7 @@ close.addEventListener('click', () => {
 もう一つ、よくあるパターンです。`aria-hidden` の中に、フォーカス可能な要素を置いてしまうケース。
 
 <div class="my-6 p-5 border border-gray-300 rounded-lg shadow-sm bg-stone-50">
-  <p class="mb-3">下のボタンは、画面には表示されています。Tab キーでもフォーカスが当たります。しかしスクリーンリーダーでは読まれません。</p>
+  <p class="mb-3">下のボタンは、画面には表示されています。Tab キーでもフォーカスが当たります。しかし、スクリーンリーダーの順次読みや読み上げ対象の一覧には現れません。</p>
   <p class="text-sm text-gray-500 mb-3">（この枠内の div には <code>aria-hidden="true"</code> が設定されています）</p>
   <div aria-hidden="true">
     <button type="button" class="ghost-focus-btn px-4 py-2.5 min-h-[44px] bg-white border-2 border-stone-400 text-stone-800 rounded shadow-sm font-medium hover:bg-stone-50">見えているのに読まれないボタン</button>
@@ -122,7 +122,7 @@ close.addEventListener('click', () => {
 </div>
 ```
 
-WAI-ARIA の仕様は、`aria-hidden="true"` を付けた要素の中にフォーカス可能な要素を置くことを明確に禁じています。しかし、これもまた「見た目には何も起きない」ので、作った本人は気づけません。Tab キーでフォーカスが当たるのに、スクリーンリーダーは「ブランク」としか言わない——晴眼の開発者には、この「幽霊フォーカス」を体験する手段がありません。
+WAI-ARIA の仕様は、`aria-hidden="true"` を付けた要素の中にフォーカス可能な要素を置くことを明確に禁じています。しかし、これもまた「見た目には何も起きない」ので、作った本人は気づけません。Tab キーでフォーカスが当たるので、NVDA では `b` や `NVDA+Tab` などのフォーカスに基づく操作では読むことができます。ただし順次読みの流れの中では「ブランク」としか言わず、全体の構造から見失われます——晴眼の開発者には、この「幽霊フォーカス」を体験する手段がありません。
 
 ## 見えないものを見えるようにする試み
 
