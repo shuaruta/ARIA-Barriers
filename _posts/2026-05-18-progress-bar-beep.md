@@ -11,7 +11,7 @@ NVDA のプログレスバー報告機能は、徐々に高くなるビープ音
 
 この歴史的な経緯が、現在の Web プログレスバーと NVDA の間に残る「ずれ」の背景にあります。具体的には、`aria-valuemax` が 100 以外に設定されたプログレスバーで、NVDA が誤った音の高さのビープ音を鳴らす問題が知られています。
 
-## 問題の概要
+### 問題の概要
 
 ARIA の `progressbar` ロールでは、進捗範囲を `aria-valuemin` と `aria-valuemax` で定義し、現在値を `aria-valuenow` で指定します。仕様上、支援技術はこれらからパーセンテージを計算すべきとされています。
 
@@ -75,7 +75,7 @@ NVDA で各プログレスバーにフォーカスし、ボタンで段階を進
 
 NVDA の設定「オブジェクト表示」の「プログレスバー出力」は「オフ」「読み上げ」「ビープ音」「ビープ音と読み上げ」のいずれかに設定できます。切り替えのキーボード操作は NVDA+U です。ビープ音の比較では「ビープ音」または「ビープ音と読み上げ」を選んでください。
 
-## NVDA が valuemax を考慮しない理由
+### NVDA が valuemax を考慮しない理由
 
 ### ARIA 仕様と「SHOULD」の構造
 
@@ -115,7 +115,7 @@ NVDA の「ブラウザを信頼する」アプローチは、パフォーマン
 
 5. **aria-valuetext の推奨** — 数値計算に頼らず、`aria-valuetext` で明示的にテキスト表現を提供することが推奨されています。
 
-## Windows ネイティブと Web、分離した 2つのモデル
+### Windows ネイティブと Web、分離した 2つのモデル
 
 この問題の背景には、プログレスバーをめぐる Windows と Web の設計の違いがあります。
 
@@ -132,7 +132,7 @@ NVDA のビープ音機能は、この分離を前提としていません。`ro
 
 なお、Windows のスライダー UI（UIA の `RangeValuePattern`）にもよく似た値解釈の問題がありました。こちらは別の記事で詳しく取り上げる予定です。
 
-## 関連する既知の問題
+### 関連する既知の問題
 
 プログレスバー周辺には、他にも以下のような問題が報告されています。
 
@@ -161,7 +161,7 @@ NVDA のビープ音機能は、この分離を前提としていません。`ro
 - **Issue:** [Min and max value not read out for &lt;meter&gt; element (nvaccess/nvda#16678)](https://github.com/nvaccess/nvda/issues/16678)
   - `<meter>` 要素（および `role="meter"`）でも min/max 値が読み上げられません
 
-## 実装者向けワークアラウンド
+### 実装者向けワークアラウンド
 
 WCAG のテクニック ARIA25 も、「プログレスバーの値を伝えるために aria-live リージョンを使うこと」を達成方法として挙げています。仕様策定側も、progressbar ロール単体では動的な値の伝達に限界があることを認識しているのです。
 
@@ -211,7 +211,7 @@ NVDA の現在の挙動を前提に、プログレスバーをアクセシブル
 <progress id="upload-progress" max="3" value="1"></progress>
 ```
 
-## まとめ
+### まとめ
 
 - **NVDA の valuemax 無視**: 仕様バグではなく設計上の制約。「not planned」
 - **責任の所在**: ブラウザが正規化すべき（W3C仕様）
@@ -220,7 +220,7 @@ NVDA の現在の挙動を前提に、プログレスバーをアクセシブル
 
 Web のプログレスバーのアクセシビリティは、ARIA 仕様・ブラウザ実装・スクリーンリーダー実装の 3 層が絡む複雑な問題です。仕様上「ブラウザがやるべき」とされていても、実際には各層で実装の差があるため、開発者側でのワークアラウンドが現実的な対策になります。`aria-valuetext` や `aria-live` リージョンの併用によって、現状の NVDA でも適切なフィードバックを提供することが可能です。
 
-## 参考
+### 参考
 
 - [NVDA not using aria-valuemax (nvaccess/nvda#6906)](https://github.com/nvaccess/nvda/issues/6906)
 - [aria-valuetext for progress bars not working (nvaccess/nvda#913)](https://github.com/nvaccess/nvda/issues/913)
