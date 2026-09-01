@@ -32,9 +32,9 @@ author:
 
 認証コードのお知らせ（メール）を details 要素で開閉し、悪い例A・悪い例B・いい例をタブで切り替えられます。有効期限のタイマーも再現しています。
 
-<iframe src="../assets/demos/cognitive-auth/demo.html" title="認知機能テスト認証デモ" width="100%" height="560" style="border:1px solid #ccc; border-radius:6px; max-width:100%;"></iframe>
+<iframe src="/assets/demos/cognitive-auth/demo.html" title="認知機能テスト認証デモ" width="100%" height="560" style="border:1px solid #ccc; border-radius:6px; max-width:100%;"></iframe>
 
-<p><a href="../assets/demos/cognitive-auth/demo.html" target="_blank" rel="noopener noreferrer">別窓でデモを開く</a></p>
+<p><a href="/assets/demos/cognitive-auth/demo.html" target="_blank" rel="noopener noreferrer">別窓でデモを開く</a></p>
 
 ### 悪い例A
 
