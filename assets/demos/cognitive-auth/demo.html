@@ -251,16 +251,16 @@
     <p>メールに届いた画像1と画像2を順番に選んでください。</p>
     <div role="group" aria-label="認証コード選択">
       <div class="auth-grid">
-        <button aria-pressed="false" data-value="ねこ"><img src="images/cat.svg" alt="ねこ"> ねこ</button>
-        <button aria-pressed="false" data-value="いぬ"><img src="images/dog.svg" alt="いぬ"> いぬ</button>
-        <button aria-pressed="false" data-value="とり"><img src="images/bird.svg" alt="とり"> とり</button>
-        <button aria-pressed="false" data-value="さかな"><img src="images/fish.svg" alt="さかな"> さかな</button>
+        <button aria-pressed="false" data-value="ねこ" aria-label="ねこ"><img src="images/cat.svg" alt=""> ねこ</button>
+        <button aria-pressed="false" data-value="いぬ" aria-label="いぬ"><img src="images/dog.svg" alt=""> いぬ</button>
+        <button aria-pressed="false" data-value="とり" aria-label="とり"><img src="images/bird.svg" alt=""> とり</button>
+        <button aria-pressed="false" data-value="さかな" aria-label="さかな"><img src="images/fish.svg" alt=""> さかな</button>
       </div>
     </div>
     <button type="button" class="extend-btn" id="extend-good">時間を延長する</button>
     <div class="timer">残り <span id="timer-good" aria-live="off">120</span> 秒<span class="sr-live" id="live-good" aria-live="polite" aria-atomic="true"></span></div>
     <div id="result-good" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
-    <p class="note">画像には <code>alt</code> 属性で「ねこ」「いぬ」などの代替テキストが付いています。スクリーンリーダー利用者にも選択肢が伝わります。</p>
+    <p class="note">ボタンには <code>aria-label</code> で「ねこ」「いぬ」などの accessible name が付いています。画像は装飾的なので <code>alt</code> は空にし、可視テキストと重複して読まれないようにしています。</p>
   </section>
 
   <script>
