@@ -60,6 +60,13 @@
       padding: 1.5rem;
       margin-bottom: 1.5rem;
     }
+    [role="tabpanel"]:focus {
+      outline: none;
+    }
+    [role="tabpanel"]:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
     .auth-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
@@ -170,11 +177,22 @@
       border-radius: 3px;
       font-family: monospace;
     }
+    .sr-live {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
   </style>
 </head>
 <body>
   <h1>認知機能テストとしての認証</h1>
-  <p>メールで届いた認証コードを、認証画面で選択する流れを再現したデモです。スクリーンリーダーで操作する人にとって、どのような違いがあるか確認できます。</p>
+  <p>メールで届いた認証コードを、認証画面で選択する流れを再現したデモです。スクリーンリーダーで操作する人にとって、どのような違いがあるか確認できます。タブは左右矢印キー、Home/End キーでも切り替えられます。</p>
 
   <details open>
     <summary>認証コードのお知らせ（メール）― 確認したら閉じてください</summary>
@@ -191,14 +209,14 @@
   <p class="note">メールの内容を確認したら、折りたたんでから認証画面を開いてください。</p>
 
   <div role="tablist" aria-label="デモの切り替え">
-    <button role="tab" id="tab-bad" aria-controls="panel-bad" aria-selected="true">1. 悪い例A</button>
-    <button role="tab" id="tab-bad2" aria-controls="panel-bad2" aria-selected="false">2. 悪い例B</button>
-    <button role="tab" id="tab-good" aria-controls="panel-good" aria-selected="false">3. いい例</button>
+    <button role="tab" id="tab-bad" aria-controls="panel-bad" aria-selected="true" tabindex="0">1. 悪い例A</button>
+    <button role="tab" id="tab-bad2" aria-controls="panel-bad2" aria-selected="false" tabindex="-1">2. 悪い例B</button>
+    <button role="tab" id="tab-good" aria-controls="panel-good" aria-selected="false" tabindex="-1">3. いい例</button>
   </div>
 
-  <section role="tabpanel" id="panel-bad" aria-labelledby="tab-bad">
-    <h2>認証コードを選択してください</h2>
-    <p>メールに届いた画像1と画像2を順番にクリックしてください。</p>
+  <section role="tabpanel" id="panel-bad" aria-labelledby="tab-bad" tabindex="-1">
+    <h2 tabindex="-1">認証コードを選択してください</h2>
+    <p>メールに届いた画像1と画像2を順番に選んでください。</p>
     <div role="group" aria-label="認証コード選択">
       <div class="auth-grid">
         <button aria-pressed="false" data-value="ねこ"><img src="images/cat.svg" alt=""></button>
@@ -207,14 +225,14 @@
         <button aria-pressed="false" data-value="さかな"><img src="images/fish.svg" alt=""></button>
       </div>
     </div>
-    <div class="timer" aria-live="polite">残り <span id="timer-bad">120</span> 秒</div>
+    <div class="timer">残り <span id="timer-bad" aria-live="off">120</span> 秒<span class="sr-live" id="live-bad" aria-live="polite" aria-atomic="true"></span></div>
     <div id="result-bad" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
     <p class="note">スクリーンリーダー利用者には、4つのボタンが「ボタン」としか読み上げられます。どれが「ねこ」「いぬ」なのかわからず、2つ選ぶことも困難です。</p>
   </section>
 
-  <section role="tabpanel" id="panel-bad2" aria-labelledby="tab-bad2" hidden>
-    <h2>認証コードを選択してください</h2>
-    <p>メールに届いた画像1と画像2を順番にクリックしてください。または、下のテキストでも認証できます。</p>
+  <section role="tabpanel" id="panel-bad2" aria-labelledby="tab-bad2" hidden tabindex="-1">
+    <h2 tabindex="-1">認証コードを選択してください</h2>
+    <p>メールに届いた画像1と画像2を順番に選んでください。または、下のテキストでも認証できます。</p>
     <div role="group" aria-label="認証コード選択">
       <div class="auth-grid">
         <button aria-pressed="false" data-value="ねこ"><img src="images/cat.svg" alt=""></button>
@@ -224,14 +242,14 @@
       </div>
     </div>
     <p>またはテキストで入力：<input type="text" id="text-bad2" aria-label="認証コードをテキストで入力"> <button type="button" class="auth-submit" id="submit-bad2">送信する</button></p>
-    <div class="timer" aria-live="polite">残り <span id="timer-bad2">120</span> 秒</div>
+    <div class="timer">残り <span id="timer-bad2" aria-live="off">120</span> 秒<span class="sr-live" id="live-bad2" aria-live="polite" aria-atomic="true"></span></div>
     <div id="result-bad2" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
     <p class="note">テキスト入力の代替手段はありますが、画像ボタン自体に代替テキストがないため、画像を選ぶ経路は依然として利用できません。2要素認証なのに CAPTCHA 風の UI を混在させる設計上の混同です。</p>
   </section>
 
-  <section role="tabpanel" id="panel-good" aria-labelledby="tab-good" hidden>
-    <h2>認証コードを選択してください</h2>
-    <p>メールに届いた画像1と画像2を順番にクリックしてください。</p>
+  <section role="tabpanel" id="panel-good" aria-labelledby="tab-good" hidden tabindex="-1">
+    <h2 tabindex="-1">認証コードを選択してください</h2>
+    <p>メールに届いた画像1と画像2を順番に選んでください。</p>
     <div role="group" aria-label="認証コード選択">
       <div class="auth-grid">
         <button aria-pressed="false" data-value="ねこ"><img src="images/cat.svg" alt="ねこ"> ねこ</button>
@@ -241,25 +259,35 @@
       </div>
     </div>
     <button type="button" class="extend-btn" id="extend-good">時間を延長する</button>
-    <div class="timer" aria-live="polite">残り <span id="timer-good">120</span> 秒</div>
+    <div class="timer">残り <span id="timer-good" aria-live="off">120</span> 秒<span class="sr-live" id="live-good" aria-live="polite" aria-atomic="true"></span></div>
     <div id="result-good" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
     <p class="note">画像には <code>alt</code> 属性で「ねこ」「いぬ」などの代替テキストが付いています。スクリーンリーダー利用者にも選択肢が伝わります。</p>
   </section>
 
   <script>
-    const tabs = document.querySelectorAll('[role="tab"]');
-    const panels = document.querySelectorAll('[role="tabpanel"]');
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        tabs.forEach(t => {
-          t.setAttribute('aria-selected', 'false');
-        });
-        tab.setAttribute('aria-selected', 'true');
-        panels.forEach(p => p.hidden = true);
-        document.getElementById(tab.getAttribute('aria-controls')).hidden = false;
+    function selectTab(targetTab, { focusPanel = true } = {}) {
+      const targetPanel = document.getElementById(targetTab.getAttribute('aria-controls'));
+
+      tabs.forEach(t => {
+        const selected = t === targetTab;
+        t.setAttribute('aria-selected', String(selected));
+        t.setAttribute('tabindex', selected ? '0' : '-1');
       });
-    });
+      panels.forEach(p => {
+        const visible = p === targetPanel;
+        p.hidden = !visible;
+      });
+
+      if (focusPanel) {
+        const heading = targetPanel.querySelector('h2');
+        if (heading) {
+          heading.focus();
+        }
+      }
+    }
 
     function setResult(result, text, type) {
       result.textContent = text;
@@ -271,33 +299,105 @@
       result.className = 'result';
     }
 
-    function startTimer(id, duration, resultId) {
+    function announceTimer(liveEl, remaining) {
+      if (remaining === 30 || remaining === 10 || remaining <= 0) {
+        liveEl.textContent = `残り ${remaining} 秒です。`;
+      }
+    }
+
+    function startTimer(id, duration, resultId, liveId) {
       let remaining = duration;
       const display = document.getElementById(id);
       const result = document.getElementById(resultId);
+      const liveEl = document.getElementById(liveId);
       const timerEl = display.closest('.timer');
+      let interval = null;
 
-      const interval = setInterval(() => {
+      function tick() {
         remaining--;
         display.textContent = remaining;
         if (remaining <= 30) {
           timerEl.classList.add('danger');
         }
+        announceTimer(liveEl, remaining);
         if (remaining <= 0) {
           clearInterval(interval);
           setResult(result, '認証に失敗しました。有効期限が切れました。', 'failure');
         }
-      }, 1000);
+      }
 
-      return { interval, getRemaining: () => remaining, setRemaining: (v) => { remaining = v; display.textContent = remaining; } };
+      function start() {
+        if (interval) clearInterval(interval);
+        interval = setInterval(tick, 1000);
+      }
+
+      function stop() {
+        if (interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+      }
+
+      start();
+
+      return {
+        start,
+        stop,
+        getRemaining: () => remaining,
+        setRemaining: (v) => {
+          remaining = v;
+          display.textContent = remaining;
+          if (remaining > 30) timerEl.classList.remove('danger');
+        }
+      };
     }
 
-    const badTimer = startTimer('timer-bad', 120, 'result-bad');
-    const bad2Timer = startTimer('timer-bad2', 120, 'result-bad2');
-    const goodTimer = startTimer('timer-good', 120, 'result-good');
+    const timers = {
+      bad: startTimer('timer-bad', 120, 'result-bad', 'live-bad'),
+      bad2: startTimer('timer-bad2', 120, 'result-bad2', 'live-bad2'),
+      good: startTimer('timer-good', 120, 'result-good', 'live-good')
+    };
+
+    function updateTimerVisibility() {
+      panels.forEach(panel => {
+        const key = panel.id.replace('panel-', '');
+        if (panel.hidden) {
+          timers[key].stop();
+        } else {
+          timers[key].start();
+        }
+      });
+    }
+
+    function selectTabAndUpdate(targetTab, options) {
+      selectTab(targetTab, options);
+      updateTimerVisibility();
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        selectTabAndUpdate(tab, { focusPanel: true });
+      });
+    });
+
+    document.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      let next = i;
+      if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = tabs.length - 1;
+      else return;
+      e.preventDefault();
+      selectTabAndUpdate(tabs[next], { focusPanel: false });
+      tabs[next].focus();
+    });
+
+    updateTimerVisibility();
 
     document.getElementById('extend-good').addEventListener('click', () => {
-      goodTimer.setRemaining(300);
+      timers.good.setRemaining(300);
       const timerEl = document.getElementById('timer-good').closest('.timer');
       timerEl.classList.remove('danger');
       setResult(document.getElementById('result-good'), '時間を延長しました。', 'success');
