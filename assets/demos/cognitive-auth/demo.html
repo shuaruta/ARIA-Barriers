@@ -19,8 +19,8 @@
       background: var(--bg);
       color: var(--text);
       max-width: 720px;
-      margin: 2rem auto;
-      padding: 0 1rem;
+      margin: 0 auto;
+      padding: 1rem;
       line-height: 1.6;
     }
     h1 {
@@ -29,6 +29,7 @@
     }
     [role="tablist"] {
       display: flex;
+      flex-wrap: wrap;
       gap: 0.5rem;
       border-bottom: 2px solid var(--border);
       margin-bottom: 1rem;
@@ -38,9 +39,10 @@
       border: none;
       padding: 0.75rem 1rem;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: #555;
       border-bottom: 3px solid transparent;
+      white-space: nowrap;
     }
     [role="tab"][aria-selected="true"] {
       color: var(--accent);
@@ -60,7 +62,7 @@
     }
     .auth-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       gap: 1rem;
       margin: 1rem 0;
     }
@@ -76,10 +78,25 @@
       border-radius: 6px;
       background: var(--panel-bg);
       cursor: pointer;
+      min-width: 0;
     }
     .auth-grid button img {
       width: 48px;
       height: 48px;
+      max-width: 100%;
+    }
+    @media (max-width: 360px) {
+      .auth-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .auth-grid button {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+      }
+      .auth-grid button img {
+        width: 40px;
+        height: 40px;
+      }
     }
     .auth-grid button.selected {
       border-color: var(--accent);
@@ -136,13 +153,13 @@
       background: var(--panel-bg);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 1rem 1.5rem;
+      padding: 1rem;
       margin-bottom: 1.5rem;
     }
     summary {
       cursor: pointer;
       font-weight: bold;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
     }
     details[open] summary {
       margin-bottom: 0.75rem;
