@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="とり">
+  <!-- 体 -->
+  <ellipse cx="48" cy="55" rx="26" ry="20" fill="#06b6d4"/>
+  <!-- 頭 -->
+  <circle cx="48" cy="36" r="16" fill="#06b6d4"/>
+  <!-- 目 -->
+  <circle cx="42" cy="34" r="3" fill="#1f2937"/>
+  <!-- くちばし -->
+  <polygon points="58,36 74,40 58,44" fill="#f59e0b"/>
+  <!-- 翼 -->
+  <path d="M35,55 Q22,45 28,65" fill="#0891b2"/>
+  <!-- 尻尾 -->
+  <path d="M72,58 Q88,50 90,68" stroke="#0891b2" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <!-- 足 -->
+  <line x1="42" y1="74" x2="42" y2="86" stroke="#f59e0b" stroke-width="3"/>
+  <line x1="56" y1="74" x2="56" y2="86" stroke="#f59e0b" stroke-width="3"/>
+</svg>
