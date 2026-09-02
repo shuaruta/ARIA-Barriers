@@ -17,6 +17,10 @@ h3 {
     @apply text-2xl font-bold py-3 mt-8 mb-4;
 }
 
+h4 {
+    @apply text-lg font-bold py-2 mt-6 mb-3;
+}
+
 .post-header {
     @apply text-center pt-10 pb-6 mb-8 border-b-2 border-stone-200;
 }
