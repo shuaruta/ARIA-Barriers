@@ -100,9 +100,9 @@ WCAG 2.2 で追加された達成基準です。認証プロセスで認知機�
 
 認証を画像選択ではなく数字や文字列にしても、メールに届いたコードを確認してコピー＆ペーストする手順は依然として認知負荷になります。ここでも新しい技術動向があります。
 
-iOS 26 では Gmail アプリの通知から確認コードをキーボード候補に表示する機能があります。スマートフォンでは、メールからの転記負荷を減らす方向が進んでいます。
+iOS では、SMS の確認コードをキーボード候補から自動入力する機能が iOS 12（2018年）から搭載されており、iOS 17（2023年）からは Apple 純正の「メール」アプリに届いた確認コードにも対応しています。iOS 26（2025年）では、この OS の確認コード自動入力（AutoFill）の対象が Gmail などサードパーティ製アプリへ拡張されました。これは Gmail 側の機能ではなく OS 側の機能拡張で、特定サービスとの個別連携ではなく、OS がアプリに届いた確認コードを検出する仕組みです（Apple による公式告知はなく、ベータ版で発見されたと報道されています）。スマートフォンでは、メールからの転記負荷を減らす方向が長期にわたって進んでいます。
 
-Google は Chrome 開発版で「Gmail OTP Autofill」機能を試験しています。Gmail にログインした同一プロファイルで、サイトの OTP 入力欄にメールの確認コードを提案するものです。
+Google は Chrome で「Gmail OTP Autofill」機能を開発しています。Gmail にログインした同一プロファイルで、サイトの OTP 入力欄にメールの確認コードを提案するものです。ただし公式の製品発表はなく、一次情報は Chromium のソースコードとコミットです。
 
 なお、これら技術はサイト側の実装の影響を受けます。たとえブラウザや OS が自動入力を提案しても、入力欄が貼り付けを拒否したり、パスワードマネージャーや自動入力を妨げたりしていれば、ユーザーは支援を受けられません。3.3.8 で想定される「補助メカニズム」は、コンテンツ側がコピー＆ペーストや自動入力を妨げないことが前提です。また、スクリーンリーダー利用者にとって自動入力がどう通知されるか、手動確認が不要かどうかは要注意です。
 
@@ -134,4 +134,6 @@ Google は Chrome 開発版で「Gmail OTP Autofill」機能を試験してい�
 - [達成基準 2.2.1: タイミング調整可能を理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG21/Understanding/timing-adjustable.html)
 - [達成基準 3.3.8: アクセシブルな認証（最低限）を理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG22/Understanding/accessible-authentication-minimum.html)
 - [達成基準 3.3.9: アクセシブルな認証（高度）を理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG22/Understanding/accessible-authentication-enhanced.html)
+- [Automatically fill in one-time verification codes on iPhone（Apple Support）](https://support.apple.com/guide/iphone/automatically-fill-in-verification-codes-ipha6173c19f/ios)
+- [iOS 26 will now autofill verification codes from Gmail and WhatsApp（Macworld, 2025-06-17）](https://www.macworld.com/article/2817737/ios-26-will-now-autofill-verification-codes-from-gmail-and-whatsapp.html)
 - [WAIC-TEST-0121-01 制限時間が切れようとしていることを利用者に警告するスクリプトを提供する](https://waic.github.io/as_test/WAIC-TEST/HTML/WAIC-TEST-0121-01.md)
