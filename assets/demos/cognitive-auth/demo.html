@@ -268,7 +268,7 @@
     const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
     const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
 
-    function selectTab(targetTab, { focusPanel = true } = {}) {
+    function selectTab(targetTab) {
       const targetPanel = document.getElementById(targetTab.getAttribute('aria-controls'));
 
       tabs.forEach(t => {
@@ -280,13 +280,6 @@
         const visible = p === targetPanel;
         p.hidden = !visible;
       });
-
-      if (focusPanel) {
-        const heading = targetPanel.querySelector('h2');
-        if (heading) {
-          heading.focus();
-        }
-      }
     }
 
     function setResult(result, text, type) {
@@ -371,14 +364,14 @@
       });
     }
 
-    function selectTabAndUpdate(targetTab, options) {
-      selectTab(targetTab, options);
+    function selectTabAndUpdate(targetTab) {
+      selectTab(targetTab);
       updateTimerVisibility();
     }
 
     tabs.forEach(tab => {
       tab.addEventListener('click', () => {
-        selectTabAndUpdate(tab, { focusPanel: true });
+        selectTabAndUpdate(tab);
       });
     });
 
@@ -392,7 +385,7 @@
       else if (e.key === 'End') next = tabs.length - 1;
       else return;
       e.preventDefault();
-      selectTabAndUpdate(tabs[next], { focusPanel: false });
+      selectTabAndUpdate(tabs[next]);
       tabs[next].focus();
     });
 
