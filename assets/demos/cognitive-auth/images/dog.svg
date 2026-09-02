@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="いぬ">
+  <!-- 耳 -->
+  <path d="M16,48 C8,28 28,18 34,40" fill="#a78bfa"/>
+  <path d="M84,48 C92,28 72,18 66,40" fill="#a78bfa"/>
+  <!-- 顔 -->
+  <rect x="28" y="36" width="44" height="44" rx="20" ry="20" fill="#8b5cf6"/>
+  <!-- 目 -->
+  <circle cx="40" cy="54" r="4" fill="#1f2937"/>
+  <circle cx="60" cy="54" r="4" fill="#1f2937"/>
+  <!-- 白い口周り -->
+  <ellipse cx="50" cy="66" rx="16" ry="12" fill="#f3e8ff"/>
+  <!-- 鼻 -->
+  <ellipse cx="50" cy="62" rx="5" ry="4" fill="#1f2937"/>
+  <!-- 口 -->
+  <path d="M45,72 Q50,78 55,72" stroke="#1f2937" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- 首輪 -->
+  <rect x="34" y="80" width="32" height="6" rx="2" fill="#f43f5e"/>
+</svg>

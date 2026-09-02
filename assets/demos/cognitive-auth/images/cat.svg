@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="ねこ">
+  <!-- 耳 -->
+  <polygon points="22,40 12,8 40,28" fill="#f59e0b"/>
+  <polygon points="78,40 88,8 60,28" fill="#f59e0b"/>
+  <!-- 顔 -->
+  <ellipse cx="50" cy="56" rx="34" ry="28" fill="#f59e0b"/>
+  <!-- 目 -->
+  <circle cx="36" cy="52" r="5" fill="#1f2937"/>
+  <circle cx="64" cy="52" r="5" fill="#1f2937"/>
+  <!-- 鼻 -->
+  <polygon points="47,60 53,60 50,65" fill="#f97316"/>
+  <!-- 口 -->
+  <path d="M42,68 Q50,74 58,68" stroke="#1f2937" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- ひげ -->
+  <line x1="18" y1="56" x2="34" y2="58" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="18" y1="64" x2="34" y2="62" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="82" y1="56" x2="66" y2="58" stroke="#1f2937" stroke-width="1.5"/>
+  <line x1="82" y1="64" x2="66" y2="62" stroke="#1f2937" stroke-width="1.5"/>
+</svg>

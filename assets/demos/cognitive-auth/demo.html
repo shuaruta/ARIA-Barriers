@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>認知機能テストとしての認証 - ARIA Barriers</title>
+  <style>
+    :root {
+      --bg: #f9f9f9;
+      --text: #222;
+      --panel-bg: #fff;
+      --border: #ccc;
+      --accent: #2563eb;
+      --danger: #dc2626;
+      --success: #16a34a;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1rem;
+      line-height: 1.6;
+    }
+    .demo-intro {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+    [role="tablist"] {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    [role="tab"] {
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: #555;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+    }
+    [role="tab"][aria-selected="true"] {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      font-weight: bold;
+    }
+    [role="tab"]:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    [role="tabpanel"] {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    [role="tabpanel"]:focus {
+      outline: none;
+    }
+    [role="tabpanel"]:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+    .auth-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    .auth-grid button {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      font-size: 1rem;
+      border: 2px solid var(--border);
+      border-radius: 6px;
+      background: var(--panel-bg);
+      cursor: pointer;
+      min-width: 0;
+    }
+    .auth-grid button img {
+      width: 48px;
+      height: 48px;
+      max-width: 100%;
+    }
+    @media (max-width: 360px) {
+      .auth-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .auth-grid button {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.9rem;
+      }
+      .auth-grid button img {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    .auth-grid button.selected {
+      border-color: var(--accent);
+      background: #eff6ff;
+    }
+    .auth-grid button:focus-visible {
+      outline: 3px solid var(--accent);
+    }
+    .timer {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    .timer.danger {
+      color: var(--danger);
+    }
+    .result {
+      margin-top: 1rem;
+      padding: 0.75rem;
+      border-radius: 4px;
+    }
+    .result.failure {
+      background: #fee2e2;
+      color: var(--danger);
+    }
+    .result.success {
+      background: #dcfce7;
+      color: var(--success);
+    }
+    .extend-btn {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .auth-submit {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .note {
+      color: #666;
+      font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    details {
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    summary {
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.05rem;
+    }
+    details[open] summary {
+      margin-bottom: 0.75rem;
+    }
+    code {
+      background: #eee;
+      padding: 0.1rem 0.3rem;
+      border-radius: 3px;
+      font-family: monospace;
+    }
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="sr-only">認知機能テストとしての認証 - デモ</h1>
+  <p class="demo-intro">メールで届いた認証コードを、認証画面で選択する流れを再現したデモです。スクリーンリーダーで操作する人にとって、どのような違いがあるか確認できます。タブは左右矢印キー、Home/End キーでも切り替えられます。</p>
+
+  <details open>
+    <summary>認証コードのお知らせ（メール）― 確認したら閉じてください</summary>
+    <p>以下のうち2つの画像を認証画面で選択してください。</p>
+    <ul>
+      <li>画像1の内容： ねこ</li>
+      <li>画像2の内容： いぬ</li>
+    </ul>
+    <p class="note">（その他の選択肢：とり、さかな）</p>
+    <p>有効期限：2分</p>
+    <p class="note">このメール自体はテキストで読めます。問題は、認証画面の画像ボタンに代替テキストがあるかどうかです。</p>
+  </details>
+
+  <p class="note">メールの内容を確認したら、折りたたんでから認証画面を開いてください。</p>
+
+  <div role="tablist" aria-label="デモの切り替え">
+    <button role="tab" id="tab-bad" aria-controls="panel-bad" aria-selected="true" tabindex="0">1. 悪い例A</button>
+    <button role="tab" id="tab-bad2" aria-controls="panel-bad2" aria-selected="false" tabindex="-1">2. 悪い例B</button>
+    <button role="tab" id="tab-good" aria-controls="panel-good" aria-selected="false" tabindex="-1">3. いい例</button>
+  </div>
+
+  <section role="tabpanel" id="panel-bad" aria-labelledby="tab-bad" tabindex="-1">
+    <h2 tabindex="-1">認証コードを選択してください</h2>
+    <p>メールに届いた画像1と画像2を順番に選んでください。</p>
+    <div role="group" aria-label="認証コード選択">
+      <div class="auth-grid">
+        <button aria-pressed="false" data-value="ねこ"><img src="images/cat.svg" alt=""></button>
+        <button aria-pressed="false" data-value="いぬ"><img src="images/dog.svg" alt=""></button>
+        <button aria-pressed="false" data-value="とり"><img src="images/bird.svg" alt=""></button>
+        <button aria-pressed="false" data-value="さかな"><img src="images/fish.svg" alt=""></button>
+      </div>
+    </div>
+    <div class="timer">残り <span id="timer-bad" aria-live="off">120</span> 秒<span class="sr-only" id="live-bad" aria-live="polite" aria-atomic="true"></span></div>
+    <div id="result-bad" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
+    <p class="note">スクリーンリーダー利用者には、4つのボタンが「ボタン」としか読み上げられます。どれが「ねこ」「いぬ」なのかわからず、2つ選ぶことも困難です。</p>
+  </section>
+
+  <section role="tabpanel" id="panel-bad2" aria-labelledby="tab-bad2" hidden tabindex="-1">
+    <h2 tabindex="-1">認証コードを選択してください</h2>
+    <p>メールに届いた画像1と画像2を順番に選んでください。または、下のテキストでも認証できます。</p>
+    <div role="group" aria-label="認証コード選択">
+      <div class="auth-grid">
+        <button aria-pressed="false" data-value="ねこ"><img src="images/cat.svg" alt=""></button>
+        <button aria-pressed="false" data-value="いぬ"><img src="images/dog.svg" alt=""></button>
+        <button aria-pressed="false" data-value="とり"><img src="images/bird.svg" alt=""></button>
+        <button aria-pressed="false" data-value="さかな"><img src="images/fish.svg" alt=""></button>
+      </div>
+    </div>
+    <p>またはテキストで入力：<input type="text" id="text-bad2" aria-label="認証コードをテキストで入力"> <button type="button" class="auth-submit" id="submit-bad2">送信する</button></p>
+    <div class="timer">残り <span id="timer-bad2" aria-live="off">120</span> 秒<span class="sr-only" id="live-bad2" aria-live="polite" aria-atomic="true"></span></div>
+    <div id="result-bad2" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
+    <p class="note">テキスト入力の代替手段はありますが、画像ボタン自体に代替テキストがないため、画像を選ぶ経路は依然として利用できません。2要素認証なのに CAPTCHA 風の UI を混在させる設計上の混同です。</p>
+  </section>
+
+  <section role="tabpanel" id="panel-good" aria-labelledby="tab-good" hidden tabindex="-1">
+    <h2 tabindex="-1">認証コードを選択してください</h2>
+    <p>メールに届いた画像1と画像2を順番に選んでください。</p>
+    <div role="group" aria-label="認証コード選択">
+      <div class="auth-grid">
+        <button aria-pressed="false" data-value="ねこ" aria-label="ねこ"><img src="images/cat.svg" alt=""> ねこ</button>
+        <button aria-pressed="false" data-value="いぬ" aria-label="いぬ"><img src="images/dog.svg" alt=""> いぬ</button>
+        <button aria-pressed="false" data-value="とり" aria-label="とり"><img src="images/bird.svg" alt=""> とり</button>
+        <button aria-pressed="false" data-value="さかな" aria-label="さかな"><img src="images/fish.svg" alt=""> さかな</button>
+      </div>
+    </div>
+    <button type="button" class="extend-btn" id="extend-good">時間を延長する</button>
+    <div class="timer">残り <span id="timer-good" aria-live="off">120</span> 秒<span class="sr-only" id="live-good" aria-live="polite" aria-atomic="true"></span></div>
+    <div id="result-good" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
+    <p class="note">ボタンには <code>aria-label</code> で「ねこ」「いぬ」などの accessible name が付いています。画像は装飾的なので <code>alt</code> は空にし、可視テキストと重複して読まれないようにしています。</p>
+  </section>
+
+  <script>
+    const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+    const panels = Array.from(document.querySelectorAll('[role="tabpanel"]'));
+
+    function selectTab(targetTab) {
+      const targetPanel = document.getElementById(targetTab.getAttribute('aria-controls'));
+
+      tabs.forEach(t => {
+        const selected = t === targetTab;
+        t.setAttribute('aria-selected', String(selected));
+        t.setAttribute('tabindex', selected ? '0' : '-1');
+      });
+      panels.forEach(p => {
+        const visible = p === targetPanel;
+        p.hidden = !visible;
+      });
+    }
+
+    function setResult(result, text, type) {
+      result.textContent = text;
+      result.className = 'result' + (type ? ' ' + type : '');
+    }
+
+    function clearResult(result) {
+      result.textContent = '';
+      result.className = 'result';
+    }
+
+    function announceTimer(liveEl, remaining) {
+      if (remaining === 30 || remaining === 10 || remaining <= 0) {
+        liveEl.textContent = `残り ${remaining} 秒です。`;
+      }
+    }
+
+    function startTimer(id, duration, resultId, liveId, announce) {
+      let remaining = duration;
+      const display = document.getElementById(id);
+      const result = document.getElementById(resultId);
+      const liveEl = document.getElementById(liveId);
+      const timerEl = display.closest('.timer');
+      let interval = null;
+
+      function tick() {
+        remaining--;
+        display.textContent = remaining;
+        if (remaining <= 30) {
+          timerEl.classList.add('danger');
+        }
+        if (announce && liveEl) {
+          announceTimer(liveEl, remaining);
+        }
+        if (remaining <= 0) {
+          clearInterval(interval);
+          setResult(result, '認証に失敗しました。有効期限が切れました。', 'failure');
+        }
+      }
+
+      function start() {
+        if (interval) clearInterval(interval);
+        interval = setInterval(tick, 1000);
+      }
+
+      function stop() {
+        if (interval) {
+          clearInterval(interval);
+          interval = null;
+        }
+      }
+
+      start();
+
+      return {
+        start,
+        stop,
+        getRemaining: () => remaining,
+        setRemaining: (v) => {
+          remaining = v;
+          display.textContent = remaining;
+          if (remaining > 30) timerEl.classList.remove('danger');
+        }
+      };
+    }
+
+    const timers = {
+      bad: startTimer('timer-bad', 120, 'result-bad', 'live-bad', false),
+      bad2: startTimer('timer-bad2', 120, 'result-bad2', 'live-bad2', false),
+      good: startTimer('timer-good', 120, 'result-good', 'live-good', true)
+    };
+
+    function updateTimerVisibility() {
+      panels.forEach(panel => {
+        const key = panel.id.replace('panel-', '');
+        if (panel.hidden) {
+          timers[key].stop();
+        } else {
+          timers[key].start();
+        }
+      });
+    }
+
+    function selectTabAndUpdate(targetTab) {
+      selectTab(targetTab);
+      updateTimerVisibility();
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        selectTabAndUpdate(tab);
+      });
+    });
+
+    document.querySelector('[role="tablist"]').addEventListener('keydown', (e) => {
+      const i = tabs.indexOf(document.activeElement);
+      if (i < 0) return;
+      let next = i;
+      if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = tabs.length - 1;
+      else return;
+      e.preventDefault();
+      selectTabAndUpdate(tabs[next]);
+      tabs[next].focus();
+    });
+
+    updateTimerVisibility();
+
+    document.getElementById('extend-good').addEventListener('click', () => {
+      timers.good.setRemaining(300);
+      const timerEl = document.getElementById('timer-good').closest('.timer');
+      timerEl.classList.remove('danger');
+      setResult(document.getElementById('result-good'), '時間を延長しました。', 'success');
+    });
+
+    function setupSelection(panelId, correctValues) {
+      const panel = document.getElementById(panelId);
+      const buttons = panel.querySelectorAll('.auth-grid button');
+      const result = panel.querySelector('.result');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          btn.classList.toggle('selected');
+          btn.setAttribute('aria-pressed', btn.classList.contains('selected'));
+
+          const selected = Array.from(buttons).filter(b => b.classList.contains('selected'));
+          if (selected.length === 2) {
+            const selectedValues = selected.map(b => b.dataset.value);
+            const isCorrect = correctValues.every(v => selectedValues.includes(v));
+            setResult(result, isCorrect ? '認証に成功しました。' : '認証に失敗しました。選択が違います。', isCorrect ? 'success' : 'failure');
+          } else if (selected.length > 2) {
+            buttons.forEach(b => {
+              b.classList.remove('selected');
+              b.setAttribute('aria-pressed', 'false');
+            });
+            btn.classList.add('selected');
+            btn.setAttribute('aria-pressed', 'true');
+            clearResult(result);
+          } else {
+            clearResult(result);
+          }
+        });
+      });
+    }
+
+    setupSelection('panel-bad', ['ねこ', 'いぬ']);
+    setupSelection('panel-bad2', ['ねこ', 'いぬ']);
+    setupSelection('panel-good', ['ねこ', 'いぬ']);
+
+    const textBad2 = document.getElementById('text-bad2');
+    const submitBad2 = document.getElementById('submit-bad2');
+    const resultBad2 = document.getElementById('result-bad2');
+    submitBad2.addEventListener('click', () => {
+      const value = textBad2.value.trim();
+      const normalized = value.replace(/[\s、，,]+/g, '');
+      if (normalized === 'ねこいぬ' || normalized === 'いぬねこ') {
+        setResult(resultBad2, '認証に成功しました。', 'success');
+      } else if (value) {
+        setResult(resultBad2, '認証に失敗しました。入力が違います。', 'failure');
+      } else {
+        setResult(resultBad2, '認証コードを入力してください。', 'failure');
+      }
+    });
+  </script>
+</body>
+</html>
