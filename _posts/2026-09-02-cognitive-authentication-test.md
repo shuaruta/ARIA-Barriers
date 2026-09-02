@@ -121,5 +121,5 @@ WCAG 2.2 で追加された達成基準です。認証プロセスで認知機�
 - [達成基準 1.1.1: 非テキストコンテンツを理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG21/Understanding/non-text-content.html)
 - [達成基準 2.2.1: タイミング調整可能を理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG21/Understanding/timing-adjustable.html)
 - [達成基準 3.3.8: アクセシブルな認証（最低限）を理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG22/Understanding/accessible-authentication-minimum.html)
+- [達成基準 3.3.9: アクセシブルな認証（高度）を理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG22/Understanding/accessible-authentication-enhanced.html)
 - [WAIC-TEST-0121-01 制限時間が切れようとしていることを利用者に警告するスクリプトを提供する](https://waic.github.io/as_test/WAIC-TEST/HTML/WAIC-TEST-0121-01.md)
-- [金融庁 ウェブアクセシビリティ方針](https://www.fsa.go.jp/accessibility.html)
