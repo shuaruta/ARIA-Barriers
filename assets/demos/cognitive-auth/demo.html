@@ -177,7 +177,7 @@
       border-radius: 3px;
       font-family: monospace;
     }
-    .sr-live {
+    .sr-only {
       position: absolute;
       width: 1px;
       height: 1px;
@@ -191,6 +191,7 @@
   </style>
 </head>
 <body>
+  <h1 class="sr-only">認知機能テストとしての認証 - デモ</h1>
   <p class="demo-intro">メールで届いた認証コードを、認証画面で選択する流れを再現したデモです。スクリーンリーダーで操作する人にとって、どのような違いがあるか確認できます。タブは左右矢印キー、Home/End キーでも切り替えられます。</p>
 
   <details open>
@@ -224,7 +225,7 @@
         <button aria-pressed="false" data-value="さかな"><img src="images/fish.svg" alt=""></button>
       </div>
     </div>
-    <div class="timer">残り <span id="timer-bad" aria-live="off">120</span> 秒<span class="sr-live" id="live-bad" aria-live="polite" aria-atomic="true"></span></div>
+    <div class="timer">残り <span id="timer-bad" aria-live="off">120</span> 秒<span class="sr-only" id="live-bad" aria-live="polite" aria-atomic="true"></span></div>
     <div id="result-bad" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
     <p class="note">スクリーンリーダー利用者には、4つのボタンが「ボタン」としか読み上げられます。どれが「ねこ」「いぬ」なのかわからず、2つ選ぶことも困難です。</p>
   </section>
@@ -241,7 +242,7 @@
       </div>
     </div>
     <p>またはテキストで入力：<input type="text" id="text-bad2" aria-label="認証コードをテキストで入力"> <button type="button" class="auth-submit" id="submit-bad2">送信する</button></p>
-    <div class="timer">残り <span id="timer-bad2" aria-live="off">120</span> 秒<span class="sr-live" id="live-bad2" aria-live="polite" aria-atomic="true"></span></div>
+    <div class="timer">残り <span id="timer-bad2" aria-live="off">120</span> 秒<span class="sr-only" id="live-bad2" aria-live="polite" aria-atomic="true"></span></div>
     <div id="result-bad2" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
     <p class="note">テキスト入力の代替手段はありますが、画像ボタン自体に代替テキストがないため、画像を選ぶ経路は依然として利用できません。2要素認証なのに CAPTCHA 風の UI を混在させる設計上の混同です。</p>
   </section>
@@ -258,7 +259,7 @@
       </div>
     </div>
     <button type="button" class="extend-btn" id="extend-good">時間を延長する</button>
-    <div class="timer">残り <span id="timer-good" aria-live="off">120</span> 秒<span class="sr-live" id="live-good" aria-live="polite" aria-atomic="true"></span></div>
+    <div class="timer">残り <span id="timer-good" aria-live="off">120</span> 秒<span class="sr-only" id="live-good" aria-live="polite" aria-atomic="true"></span></div>
     <div id="result-good" class="result" role="status" aria-live="polite" aria-atomic="true"></div>
     <p class="note">ボタンには <code>aria-label</code> で「ねこ」「いぬ」などの accessible name が付いています。画像は装飾的なので <code>alt</code> は空にし、可視テキストと重複して読まれないようにしています。</p>
   </section>
@@ -304,7 +305,7 @@
       }
     }
 
-    function startTimer(id, duration, resultId, liveId) {
+    function startTimer(id, duration, resultId, liveId, announce) {
       let remaining = duration;
       const display = document.getElementById(id);
       const result = document.getElementById(resultId);
@@ -318,7 +319,9 @@
         if (remaining <= 30) {
           timerEl.classList.add('danger');
         }
-        announceTimer(liveEl, remaining);
+        if (announce && liveEl) {
+          announceTimer(liveEl, remaining);
+        }
         if (remaining <= 0) {
           clearInterval(interval);
           setResult(result, '認証に失敗しました。有効期限が切れました。', 'failure');
@@ -352,9 +355,9 @@
     }
 
     const timers = {
-      bad: startTimer('timer-bad', 120, 'result-bad', 'live-bad'),
-      bad2: startTimer('timer-bad2', 120, 'result-bad2', 'live-bad2'),
-      good: startTimer('timer-good', 120, 'result-good', 'live-good')
+      bad: startTimer('timer-bad', 120, 'result-bad', 'live-bad', false),
+      bad2: startTimer('timer-bad2', 120, 'result-bad2', 'live-bad2', false),
+      good: startTimer('timer-good', 120, 'result-good', 'live-good', true)
     };
 
     function updateTimerVisibility() {
