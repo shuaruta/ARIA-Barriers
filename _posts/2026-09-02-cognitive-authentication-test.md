@@ -70,7 +70,7 @@ author:
 
 #### 2.2.1 タイミング調整可能
 
-時間制限がある場合、解除・調整・延長のいずれかが必要です。制限時間が固定で警告や延長もない認証は、この達成基準を満たしません。[WAIC-TEST-0121-01](https://waic.github.io/as_test/WAIC-TEST/HTML/WAIC-TEST-0121-01.md) では、制限時間が切れようとしていることを利用者に警告するスクリプトを提供しています。
+時間制限がある場合、解除・調整・延長のいずれかが必要です。制限時間が固定で警告や延長もない認証は、この達成基準を満たしません。[WAIC-TEST-0121-01](https://waic.github.io/as_test/WAIC-TEST/HTML/WAIC-TEST-0121-01.html) では、制限時間が切れようとしていることを利用者に警告するスクリプトを提供しています。
 
 OTPの有効期限として時間制限は設けられていますが、ユーザーが複数の選択肢を検討し、間違えて再選択し、操作を完了するには十分な時間ではありません。特に画面読み上げユーザーは、ラベル読み上げに時間がかかるため、実質的な操作時間がさらに短くなります。
 
@@ -136,4 +136,4 @@ Google は Chrome で「Gmail OTP Autofill」機能を開発しています。Gm
 - [達成基準 3.3.9: アクセシブルな認証（高度）を理解する（WAIC日本語訳）](https://waic.jp/translations/WCAG22/Understanding/accessible-authentication-enhanced.html)
 - [Automatically fill in one-time verification codes on iPhone（Apple Support）](https://support.apple.com/guide/iphone/automatically-fill-in-verification-codes-ipha6173c19f/ios)
 - [iOS 26 will now autofill verification codes from Gmail and WhatsApp（Macworld, 2025-06-17）](https://www.macworld.com/article/2817737/ios-26-will-now-autofill-verification-codes-from-gmail-and-whatsapp.html)
-- [WAIC-TEST-0121-01 制限時間が切れようとしていることを利用者に警告するスクリプトを提供する](https://waic.github.io/as_test/WAIC-TEST/HTML/WAIC-TEST-0121-01.md)
+- [WAIC-TEST-0121-01 制限時間が切れようとしていることを利用者に警告するスクリプトを提供する](https://waic.github.io/as_test/WAIC-TEST/HTML/WAIC-TEST-0121-01.html)
